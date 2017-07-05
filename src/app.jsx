@@ -1,14 +1,21 @@
 import React from 'react';
 import '../styles/index.scss';
+import Header from "./layout/header";
+import Footer from "./layout/footer";
+import Nav from "./layout/nav";
+import Demo from "./demo/index"
+import Intro from "./intro/index"
 
 export default class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>It Works!</h1>
-        <p>This React project just works including <span className="redBg">module</span> local styles.</p>
-        <p>Enjoy!</p>
-      </div>
-    )
-  }
+	render() {
+		return (
+			<div>
+				<Header/>
+				<Nav/>
+				<Demo/>
+				<Intro/>
+				<Footer/>
+			</div>
+		)
+	}
 }
