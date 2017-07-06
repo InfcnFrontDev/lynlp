@@ -34,13 +34,46 @@ export default class Result extends React.Component {
 			selected: 'a-01'
 		}
 	}
+	componentDidMount(){
+		function getElementTop(elem){
+			var elemTop=elem.offsetTop;
+			elem=elem.offsetParent;
+			while(elem!=null){
+				elemTop+=elem.offsetTop;
+				elem=elem.offsetParent;
+			}
+			return elemTop;
+		}
+
+		window.addEventListener('scroll', function () {
+			var obj = document.getElementById('test');
+			var offsetTop = getElementTop(obj)
+			var scrollTop = document.body.scrollTop
+			// console.log(document.body.scrollTop);
+			if (scrollTop< offsetTop) {
+				obj.style.position = 'static';
+			}else{
+				obj.style.position = 'fixed';
+				obj.style.top = '10px';
+			}
+
+		})
+	}
+	componentWillUnmount() {
+		window.removeEventListener('scroll');
+	}
+	onItemPress(id){
+		this.setState({
+			selected: id
+		})
+	}
 
 	render() {
 		return (
 			<div>
 				<h2 className="h2-z">分析结果</h2>
 				<div className="mf cf">
-					<ul className="nav-l fl">
+					<ul className="nav-l fl" id="test">
 						{items.map((item) => this.renderMenuItem(item))}
 					</ul>
 					<div className="m-r fr">
@@ -55,7 +88,7 @@ export default class Result extends React.Component {
 		let {selected} = this.state;
 		return (
 			<li className={selected == item.id ? 'oli' : ''}>
-				<a href="#" className={item.id}>{item.title}</a><span className="sp2"></span>
+				<a href={'#' + item.id} className={item.id} onClick={this.onItemPress.bind(this,item.id)}>{item.title}</a><span className="sp2"></span>
 			</li>
 		)
 	}
@@ -63,7 +96,9 @@ export default class Result extends React.Component {
 	renderResultItem(item) {
 		const Component = item.component;
 		return (
-			<Component item={item}/>
+			<div id={item.id}>
+				<Component item={item}/>
+			</div>
 		)
 	}
 }
