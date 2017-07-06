@@ -87,10 +87,9 @@ export default class Result extends React.Component {
 	renderMenuItem(item) {
 		let {selected} = this.state;
 		return (
-			<li className={selected == item.id ? 'oli' : ''}>
-				<a href={'#' + item.id} className={item.id} onClick={this.onItemPress.bind(this,item.id)}>{item.title}</a><span className="sp2"></span>
 			<li key={item.id} className={selected == item.id ? 'oli' : ''}>
-				<a href="#" className={item.id}>{item.title}</a><span className="sp2"></span>
+				<a href={'#' + item.id} className={item.id} onClick={this.onItemPress.bind(this,item.id)}>{item.title}</a>
+				<span className="sp2"></span>
 			</li>
 		)
 	}
@@ -98,10 +97,9 @@ export default class Result extends React.Component {
 	renderResultItem(item) {
 		const Component = item.component;
 		return (
-			<div id={item.id}>
+			<div key={item.id} id={item.id}>
 				<Component item={item}/>
 			</div>
-			<Component key={item.id} item={item}/>
 		)
 	}
 }
