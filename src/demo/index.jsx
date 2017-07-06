@@ -1,12 +1,17 @@
-import React from 'react';
+import React from "react";
+import Position from "./position";
+import SubmitText from "./submit-text";
+import Result from "./result";
+import GoTop from "./go-top";
 
-export default class App extends React.Component {
+export default class Demo extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>It Works!</h1>
-				<p>This React project just works including <span className="redBg">module</span> local styles.</p>
-				<p>Enjoy!</p>
+				<Position/>
+				<SubmitText/>
+				<Result/>
+				<GoTop/>
 			</div>
 		)
 	}

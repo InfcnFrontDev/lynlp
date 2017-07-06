@@ -1,13 +1,12 @@
-import React from 'react';
+import React from "react";
 
 export default class App extends React.Component {
 	render() {
 		return (
-			<div>
-				<h1>It Works!</h1>
-				<p>This React project just works including <span className="redBg">module</span> local styles.</p>
-				<p>Enjoy!</p>
+			<div className="footer">
+				电话：400-086-6899<span> | </span>邮箱：support@infcn.com.cn<span> | </span>北京英富森软件股份有限公司<span> | </span>版本所有
 			</div>
+
 		)
 	}
 }
