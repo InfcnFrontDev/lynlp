@@ -1,11 +1,15 @@
 import React from "react";
+import axios from "axios";
 
 /**
  * 词频统计
  */
 export default class WordFrequency extends React.Component {
+
+
 	render() {
 		let {item} = this.props;
+		console.log(item);
 		return (
 			<div className="m-hk">
 				<div className="jpt cf">

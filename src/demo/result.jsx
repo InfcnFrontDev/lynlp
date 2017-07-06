@@ -54,7 +54,7 @@ export default class Result extends React.Component {
 	renderMenuItem(item) {
 		let {selected} = this.state;
 		return (
-			<li className={selected == item.id ? 'oli' : ''}>
+			<li key={item.id} className={selected == item.id ? 'oli' : ''}>
 				<a href="#" className={item.id}>{item.title}</a><span className="sp2"></span>
 			</li>
 		)
@@ -63,7 +63,7 @@ export default class Result extends React.Component {
 	renderResultItem(item) {
 		const Component = item.component;
 		return (
-			<Component item={item}/>
+			<Component key={item.id} item={item}/>
 		)
 	}
 }
