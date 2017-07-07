@@ -17,7 +17,7 @@ const newPromise = function (url, params) {
 				reject(res.message)
 			}
 		})
-		.catch(err => reject(error));
+		.catch(err => reject(err));
 	})
 }
 

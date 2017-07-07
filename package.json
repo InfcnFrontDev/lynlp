@@ -17,9 +17,11 @@
   "license": "MIT",
   "homepage": "http://192.168.10.158/InfcnFrontDev/lynlp#readme",
   "dependencies": {
-    "echarts": "^3.6.2",
     "axios": "^0.16.2",
+    "babel-preset-stage-1": "^6.24.1",
+    "echarts": "^3.6.2",
     "mobx": "^3.1.16",
+    "mobx-logger": "^0.6.0",
     "mobx-react": "^4.2.2",
     "node-sass": "^4.3.0",
     "react": "15.4.2",
