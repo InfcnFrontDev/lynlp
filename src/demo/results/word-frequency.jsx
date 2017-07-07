@@ -3,7 +3,7 @@ import React from "react";
 /**
  * 分词标注
  */
-export default class WordSegmentation extends React.Component {
+export default class WordFrequency extends React.Component {
 	render() {
 		let {item} = this.props;
 		return (
