@@ -1,6 +1,7 @@
 import config from './config'
 
 const newPromise = function (url, params) {
+	console.log(params)
 	return new Promise(function (resolve, reject) {
 		fetch(url, {
 			method: "POST",
@@ -23,10 +24,10 @@ const newPromise = function (url, params) {
 
 export default {
 	/**
-	 * 繁体转简体
+	 * 情感分析
 	 */
-	f2j(content) {
-		return new newPromise(config.apiPath + 'NlpDemoApi/f2j', {
+	sentiment(content) {
+		return new newPromise(config.apiPath + 'NlpDemoApi/sentiment', {
 			content
 		})
 	},
