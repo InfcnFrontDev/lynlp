@@ -35,6 +35,15 @@ export default class Result extends React.Component {
 		}
 	}
 	componentDidMount(){
+		window.addEventListener('scroll',  this.handleScroll.bind(this))
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('scroll', this.handleScroll.bind(this));
+	}
+
+	handleScroll(){
+		let self = this
 		function getElementTop(elem){
 			var elemTop=elem.offsetTop;
 			elem=elem.offsetParent;
@@ -44,24 +53,27 @@ export default class Result extends React.Component {
 			}
 			return elemTop;
 		}
-
-		window.addEventListener('scroll', function () {
-			var obj = document.getElementById('test');
+		const scrollTop = document.body.scrollTop
+		items.map((item)=>{
+			var obj = document.getElementById(item.id);
 			var offsetTop = getElementTop(obj)
-			var scrollTop = document.body.scrollTop
-			// console.log(document.body.scrollTop);
-			if (scrollTop< offsetTop) {
-				obj.style.position = 'static';
-			}else{
-				obj.style.position = 'fixed';
-				obj.style.top = '10px';
+			if (scrollTop > offsetTop) {
+				self.setState({
+					selected: item.id
+				})
 			}
-
 		})
+
+		var obj1 = document.getElementById('test');
+		var offsetTop1 = getElementTop(obj1)
+		if (scrollTop< offsetTop1) {
+			obj1.style.position = 'static';
+		}else {
+			obj1.style.position = 'fixed';
+			obj1.style.top = '10px';
+		}
 	}
-	componentWillUnmount() {
-		window.removeEventListener('scroll');
-	}
+
 	onItemPress(id){
 		this.setState({
 			selected: id
