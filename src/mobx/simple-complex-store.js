@@ -3,7 +3,7 @@ import LynlpApi from "../common/lynlp-api"
 
 class SimpleComplexStore {
 
-	@observable isFetching= true;
+	@observable isFetching= false;
 	@observable	jianti='';
 	@observable	fanti= '';
 	@observable pinyin= '';

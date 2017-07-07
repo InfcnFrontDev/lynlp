@@ -47,6 +47,30 @@ export default {
 		})
 	},
 	/**
+	 * 内容摘要
+	 */
+	summary(content) {
+		return new newPromise(config.apiPath + 'NlpDemoApi/summary', {
+			content
+		})
+	},
+	/**
+	 * 文本分类
+	 */
+	category(content) {
+		return new newPromise(config.apiPath + 'NlpDemoApi/category', {
+			content
+		})
+	},
+	/**
+	 * 关键词抽取
+	 */
+	keyword(content) {
+		return new newPromise(config.apiPath + 'NlpDemoApi/keyword', {
+			content
+		})
+	},
+	/**
 	 * 获取CPU信息
 	 */
 	getCpus(monitorDate, interval) {

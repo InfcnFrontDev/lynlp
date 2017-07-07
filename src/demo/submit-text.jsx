@@ -1,5 +1,8 @@
 import React from "react";
 import simpleComplexStore from "../mobx/simple-complex-store"
+import contentSummaryStore from "../mobx/conent-summary-store"
+import textClassificationStore from "../mobx/text-classification-store"
+import keywordExtractStore from "../mobx/keyword-extract-store"
 
 export default class SubmitText extends React.Component {
 
@@ -38,5 +41,8 @@ export default class SubmitText extends React.Component {
 	submitText(){
 		let {content} = this.state;
 		simpleComplexStore.fetchData(content);
+		contentSummaryStore.fetchData(content);
+		textClassificationStore.fetchData(content);
+		keywordExtractStore.fetchData(content);
 	}
 }
