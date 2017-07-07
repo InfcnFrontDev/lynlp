@@ -15,15 +15,11 @@ class SentimentAnalysisStore {
 	@action
 	fetchData(content) {
 		this.isFetching = true;
-		this.zheng=[];
-		this.fu=[];
-		this.zheng_value=0;
-		this.fu_value=0;
+		let  zheng=[];
+		let  fu=[];
+		let  zheng_value=0;
+		let  fu_value=0;
 		LynlpApi.sentiment(content).then(res => {
-
-
-			//
-			console.log(res);
 
 			for(let i=0;i<res.length;i++){
 
@@ -31,17 +27,19 @@ class SentimentAnalysisStore {
 					let now_sen = sentiment[val.trim()];
 					now_sen.value = res[i][val];
 					if(now_sen.type==1){
-						this.zheng_value+=now_sen.value;
-						this.zheng.push(now_sen);
+						zheng_value+=now_sen.value;
+						zheng.push(now_sen);
 					}else{
-						this.fu_value+=now_sen.value;
-						this.fu.push(now_sen);
+						fu_value+=now_sen.value;
+						fu.push(now_sen);
 					}
 				}
 			}
-
-			this.data = this.zheng.concat(this.fu);
-			console.log(this.zheng)
+			this.zheng = zheng;
+			this.fu = fu;
+			this.zheng_value = zheng_value;
+			this.fu_value = fu_value;
+			this.data = zheng.concat(fu);
 
 			this.data_type = [
 				{value:this.zheng_value, name:'正',itemStyle:{

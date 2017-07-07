@@ -1,48 +1,54 @@
 import React from "react";
-import simpleComplexStore from "../mobx/simple-complex-store"
-import contentSummaryStore from "../mobx/conent-summary-store"
-import textClassificationStore from "../mobx/text-classification-store"
-import keywordExtractStore from "../mobx/keyword-extract-store"
+import {observer} from "mobx-react";
+import contentStore from "../mobx/content-store";
+import simpleComplexStore from "../mobx/simple-complex-store";
+import contentSummaryStore from "../mobx/conent-summary-store";
+import textClassificationStore from "../mobx/text-classification-store";
+import keywordExtractStore from "../mobx/keyword-extract-store";
 
+@observer
 export default class SubmitText extends React.Component {
 
 	constructor(props) {
 		super(props)
 		this.state = {
-			content: '北京英富森软件股份有限公司（股票代码：430374）以“信息中国”（Information China，简称INFCN）为核心目标与发展战略，面向全行业信息（知识）服务用户，基于语言学、应用数学及计算机技术实现信息（知识）的规划、采集、整合、组织、发现与利用，为机构（或个人）用户提供信息（知识）应用的相关软件产品与解决方案。公司是国家级高新技术企业、双软企业，并通过了ISO9001:2008计算机应用软件开发质量体系认证、CMMI-DEV ML3认证及ISO27001-2013认证。公司被中国计算机行业协会、中国软件行业协会分别授予“2013年度中国信息与知识服务行业领军企业奖”和“2014中国软件行业优秀企业奖”称号。'
+			url: ''
 		}
 	}
 
 	render() {
-		let {content} = this.state;
 		return (
 			<div className="wb-t">
-				<textarea className="txtr_1" defaultValue={content}
-						  onChange={this.handleChange.bind(this)}/>
+				<textarea className="txtr_1" value={contentStore.content}
+						  onChange={(e) => contentStore.content = e.target.value}/>
 				<div className="wbt-b cf">
-					<a href="#" className="tj-a fr" onClick={this.submitText.bind(this)}>提交文本</a>
-					<a href="#" className="zq-a fr">抓取</a>
-					<input type="url" className="txt-1 fr" placeholder="网页URL......"/>
+					<a href="javascript:void(0)" className="tj-a fr" onClick={this.submitText.bind(this)}>提交文本</a>
+					<a href="javascript:void(0)" className="zq-a fr" onClick={this.grabContent.bind(this)}>抓取</a>
+					<input type="url" className="txt-1 fr" placeholder="网页URL......" value={this.state.url}
+						   onChange={(e) => this.setState({url: e.target.value})}/>
 				</div>
 			</div>
 		)
 	}
 
-	handleChange(event){
-		console.log(event)
-		this.setState({content: event.target.value});
+	componentDidMount() {
+		this.submitText();
 	}
 
-	componentDidMount(){
-
-	}
-
-
-	submitText(){
-		let {content} = this.state;
+	submitText() {
+		let {content} = contentStore;
 		simpleComplexStore.fetchData(content);
 		contentSummaryStore.fetchData(content);
 		textClassificationStore.fetchData(content);
 		keywordExtractStore.fetchData(content);
+	}
+
+	grabContent() {
+		let {url} = this.state;
+		if (url == '') {
+			alert('请输入网址。')
+			return
+		}
+		contentStore.grabContent(url);
 	}
 }

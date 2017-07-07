@@ -24,52 +24,10 @@ export default class SentimentAnalysis extends React.Component {
 
 	componentWillMount(){
 		sentimentAnalysisStore.fetchData('4日16时许，一段内容为长沙市望城区靖港镇干部与受灾群众发生争执的视频在群内传播。当晚19时许，微博上出现一则“长沙市望城区靖港镇干部呷着槟榔叼着烟，女干部撑着伞抗洪救灾”的贴文并附相关视频，随后在网上迅速转发传播。女干部撑伞嚼槟榔被警告7月5日晚，湖南省长沙市望城区网络宣传管理办公室官方微博发布《关于防汛期间靖港镇干部涉网舆情事件的调查情况说明》，经由望城区纪委成立调查组调查核实，在该事件处理过程中，靖港镇纪委书记邓治国一直在与社区居民高大立、高志立进行解释说明，并无人为其撑伞;靖港镇芦江社区刘壮确实存在抽烟嚼槟榔行为，也没有积极主动开展劝解工作，且该视频前一分半钟左右时间由一女性帮其撑伞。据刘壮本人回忆，因当天下雨，社区临聘人员熊丹在其不知情的情况下帮其撑伞，刘壮发现有人帮其撑伞后马上自己打伞。')
-		// fetch('http://192.168.10.58:8085/api/NlpDemoApi/sentiment?content=')
-		// 	.then(res=>res.json())
-		// 	.then(res=>{
-		// 		this.zheng=[];
-		// 		this.fu=[];
-		// 		this.zheng_value=0;
-		// 		this.fu_value=0;
-		// 		for(let i=0;i<res.obj.length;i++){
-		// 			for (var val in res.obj[i]){
-		// 				console.log(val)
-		// 				let now_sen = sentiment[val.trim()];
-		// 				now_sen.value = res.obj[i][val];
-		// 				if(now_sen.type==1){
-		// 					this.zheng_value+=now_sen.value;
-		// 					this.zheng.push(now_sen);
-		// 				}else{
-		// 					this.fu_value+=now_sen.value;
-		// 					this.fu.push(now_sen);
-		// 				}
-		// 			}
-		// 		}
-        //
-		// 		this.setState({
-		// 			data:this.zheng.concat(this.fu),
-		// 			data_type:[
-		// 				{value:this.zheng_value, name:'正',itemStyle:{
-		// 					normal:{
-		// 						color:'#FF7F50',
-		// 					}
-		// 				}, selected:true},
-		// 				{value:this.fu_value, name:'负',itemStyle:{
-		// 					normal:{
-		// 						color:'#87CEEB',
-		// 					}
-		// 				},},
-		// 			],
-		// 			zheng:this.zheng,
-		// 			fu:this.fu
-		// 		})
-		// 	})
-
 	}
 
 	componentDidUpdate(props) {
 		let {data,data_type} = sentimentAnalysisStore;
-		console.log(Array.prototype.slice.call(data, 0));
 		let data1 = Array.prototype.slice.call(data, 0);
 		let data2 = Array.prototype.slice.call(data_type, 0);
 		var myChart = echarts.init(document.getElementById('qgfxbt'));
