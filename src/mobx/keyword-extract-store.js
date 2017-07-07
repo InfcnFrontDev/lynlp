@@ -1,19 +1,16 @@
 import {observable, runInAction, computed, action, reaction, autorun} from "mobx";
 import LynlpApi from "../common/lynlp-api"
 
-class TextClassificationStore {
-	@observable	category='';
+class KeywordExtractStore {
+	@observable	keyword='';
 
 	@action
 	fetchData(content){
-		LynlpApi.category(content).then(res => {
-			this.category = res;
+		LynlpApi.keyword(content).then(res => {
+			this.keyword = res;
 		});
 	}
-
-
-
 }
 
-const textClassificationStore = new TextClassificationStore();
-export default textClassificationStore
+const keywordExtractStore = new KeywordExtractStore();
+export default keywordExtractStore
