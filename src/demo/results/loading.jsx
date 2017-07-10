@@ -3,7 +3,7 @@ export default class Loading extends React.Component {
 	render (){
 		return (
 			<div style={{width: 910,height: 100,textAlign: 'center'}}>
-				<img src={require('../../../images/loading.gif')} alt="" width={'220'} height={'150'}/>
+				<img src={require('../../../images/loading.gif')} alt="loading..." />
 			</div>
 		)
 	}
