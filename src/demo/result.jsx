@@ -99,15 +99,15 @@ export default class Result extends React.Component {
 	renderMenuItem(item) {
 		let {selected} = this.state;
 		return (
-			<li key={item.id} className={selected == item.id ? 'oli' : ''}>
+			<li key={item.id} className={selected === item.id ? 'oli' : ''}>
 				<a href={'#' + item.id} className={item.id} onClick={this.onItemPress.bind(this,item.id)}>{item.title}</a>
-				<span className="sp2"></span>
+				<span className="sp2"/>
 			</li>
 		)
 	}
 
 	renderResultItem(item) {
-		const Component = item.component;
+		let Component = item.component;
 		return (
 			<div key={item.id} id={item.id}>
 				<Component item={item}/>
