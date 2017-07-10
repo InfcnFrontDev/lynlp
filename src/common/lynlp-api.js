@@ -52,6 +52,14 @@ export default {
 		})
 	},
 	/**
+	 * 简体转繁体
+	 */
+	f2j(content) {
+		return new newPromise(config.apiPath + 'NlpDemoApi/f2j', {
+			content
+		})
+	},
+	/**
 	 * 简体转拼音
 	 */
 	pinyin(content) {
