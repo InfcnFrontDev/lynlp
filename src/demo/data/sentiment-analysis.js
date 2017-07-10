@@ -12,7 +12,7 @@ export const sentiment = {
 		name:'安心',
 		itemStyle:{
 			normal:{
-				color:'#87CEEB',
+				color:'#FF7F50',
 			}
 		},
 		type:1

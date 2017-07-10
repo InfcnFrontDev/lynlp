@@ -20,18 +20,19 @@ class SentimentAnalysisStore {
 		let  zheng_value=0;
 		let  fu_value=0;
 		LynlpApi.sentiment(content).then(res => {
-
 			for(let i=0;i<res.length;i++){
 
 				for (var val in res[i]){
 					let now_sen = sentiment[val.trim()];
-					now_sen.value = res[i][val];
-					if(now_sen.type==1){
-						zheng_value+=now_sen.value;
-						zheng.push(now_sen);
-					}else{
-						fu_value+=now_sen.value;
-						fu.push(now_sen);
+					if(now_sen){
+						now_sen.value = res[i][val];
+						if(now_sen.type==1){
+							zheng_value+=now_sen.value;
+							zheng.push(now_sen);
+						}else{
+							fu_value+=now_sen.value;
+							fu.push(now_sen);
+						}
 					}
 				}
 			}
