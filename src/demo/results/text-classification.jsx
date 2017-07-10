@@ -9,7 +9,7 @@ export default class TextClassification extends React.Component {
 
 	render() {
 		let {item} = this.props
-		let itemName = ["教育", "军事", "人文", "旅游", "职场", "经济", "医疗", "体育", "科技"];
+		const itemName = ["教育", "军事", "人文", "旅游", "职场", "经济", "医疗", "体育", "科技"];
 		let category = textClassificationStore.category || '科技';
 		let index  = itemName.indexOf(category) || 8;
 		return (
