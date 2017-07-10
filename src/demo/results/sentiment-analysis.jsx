@@ -77,18 +77,17 @@ export default class SentimentAnalysis extends React.Component {
 					<h3 className="fl"><i>{item.title}</i></h3>
 				</div>
 				<div className="cf qfmkj">
-					{/*{isFetching ? 'is fetching.': (*/}
-						{/**/}
-					{/*)}*/}
-					<div className="fl cf">
+					{isFetching ? 'is fetching.': (
+						<div className="fl cf">
 
-						<div className="fl qfmlb">
-							{this.showList(Array.prototype.slice.call(zheng, 0),1)}
+							<div className="fl qfmlb">
+								{this.showList(Array.prototype.slice.call(zheng, 0),1)}
+							</div>
+							<div className="fl qfmlb">
+								{this.showList(Array.prototype.slice.call(fu, 0),2)}
+							</div>
 						</div>
-						<div className="fl qfmlb">
-							{this.showList(Array.prototype.slice.call(fu, 0),2)}
-						</div>
-					</div>
+					)}
 					<div className="fl qfmbt" id="qgfxbt"></div>
 
 				</div>

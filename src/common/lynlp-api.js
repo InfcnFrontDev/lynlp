@@ -75,6 +75,7 @@ export default {
 		return new newPromise(config.apiPath + 'NlpDemoApi/summary', {
 			content
 		})
+	},
 	seg(type,content,dic) {
 
 		return new newPromise(config.apiPath + 'NlpDemoApi/seg', {
