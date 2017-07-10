@@ -18,6 +18,8 @@
   "homepage": "http://192.168.10.158/InfcnFrontDev/lynlp#readme",
   "dependencies": {
     "axios": "^0.16.2",
+    "lodash": "^4.17.4",
+    "babel-preset-stage-1": "^6.24.1",
     "echarts": "^3.6.2",
     "lodash": "^4.17.4",
     "mobx": "^3.1.16",
@@ -27,7 +29,9 @@
     "node-sass": "^4.3.0",
     "react": "15.4.2",
     "react-d3-cloud": "^0.4.1",
-    "react-dom": "15.4.2"
+    "react-dom": "15.4.2",
+    "react-loading": "^0.1.4",
+    "sass-loader": "^6.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
