@@ -52,14 +52,6 @@ export default {
 		})
 	},
 	/**
-	 * 简体转繁体
-	 */
-	f2j(content) {
-		return new newPromise(config.apiPath + 'NlpDemoApi/f2j', {
-			content
-		})
-	},
-	/**
 	 * 简体转拼音
 	 */
 	pinyin(content) {
@@ -69,7 +61,6 @@ export default {
 	},
 	/**
 	 * 内容摘要
-	 * 词性分析
 	 */
 	summary(content) {
 		return new newPromise(config.apiPath + 'NlpDemoApi/summary', {
