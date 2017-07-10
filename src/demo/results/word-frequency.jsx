@@ -1,15 +1,22 @@
 import React from "react";
-import axios from "axios";
+import WordSegmentationStore from "../../mobx/word-segmentation-store"
+
+
 
 /**
  * 词频统计
  */
 export default class WordFrequency extends React.Component {
+	componentWillMount(){
+		//WordSegmentationStore.fetchData('nlp',content,'北京')
+	}
 
 
 	render() {
-		let {item} = this.props;
+		let item=WordSegmentationStore.nlp
+
 		console.log(item);
+
 		return (
 			<div className="m-hk">
 				<div className="jpt cf">

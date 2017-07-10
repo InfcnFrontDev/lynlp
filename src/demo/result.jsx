@@ -60,7 +60,7 @@ export default class Result extends React.Component {
 		})
 	}
 	componentWillUnmount() {
-		window.removeEventListener('scroll');
+		//window.removeEventListener('scroll');
 	}
 	onItemPress(id){
 		this.setState({

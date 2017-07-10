@@ -1,6 +1,8 @@
 import config from './config'
 
 const newPromise = function (url, params) {
+	console.log(params);
+
 	return new Promise(function (resolve, reject) {
 		fetch(url, {
 			method: "POST",
@@ -47,10 +49,13 @@ export default {
 		})
 	},
 	/**
-	 * 获取CPU信息
+	 * 词性分析
 	 */
-	getCpus(monitorDate, interval) {
-		return newPromise('cpu', monitorDate, interval);
+	seg(type,content,dic) {
+
+		return new newPromise(config.apiPath + 'NlpDemoApi/seg', {
+			type,content,dic
+		})
 	},
 	/**
 	 * 获取系统物理内存信息
