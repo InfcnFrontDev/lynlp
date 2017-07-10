@@ -57,7 +57,7 @@ export default class Result extends React.Component {
 		items.map((item)=>{
 			var obj = document.getElementById(item.id);
 			var offsetTop = getElementTop(obj)
-			if (scrollTop > offsetTop) {
+			if (scrollTop > offsetTop -300) {
 				self.setState({
 					selected: item.id
 				})
@@ -66,7 +66,7 @@ export default class Result extends React.Component {
 
 		var obj1 = document.getElementById('test');
 		var offsetTop1 = getElementTop(obj1)
-		if (scrollTop< offsetTop1) {
+		if (scrollTop< offsetTop1||(obj1.style.position=='fixed'&&scrollTop<530)) {
 			obj1.style.position = 'static';
 		}else {
 			obj1.style.position = 'fixed';

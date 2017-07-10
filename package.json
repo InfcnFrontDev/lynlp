@@ -18,6 +18,7 @@
   "homepage": "http://192.168.10.158/InfcnFrontDev/lynlp#readme",
   "dependencies": {
     "axios": "^0.16.2",
+    "lodash": "^4.17.4",
     "babel-preset-stage-1": "^6.24.1",
     "echarts": "^3.6.2",
     "lodash": "^4.17.4",

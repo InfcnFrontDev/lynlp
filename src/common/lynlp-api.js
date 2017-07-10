@@ -65,6 +65,12 @@ export default {
 			content
 		})
 	},
+	seg(type,content,dic) {
+
+		return new newPromise(config.apiPath + 'NlpDemoApi/seg', {
+			type,content,dic
+		})
+	},
 	/**
 	 * 文本分类
 	 */
