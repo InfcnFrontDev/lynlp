@@ -2,6 +2,7 @@ import React from 'react';
 import echarts from 'echarts';
 import {observer} from "mobx-react";
 import sentimentAnalysisStore from "../../mobx/sentiment-analysis-store"
+import contentStore from "../../mobx/content-store";
 
 /**
  * 情感分析
@@ -19,11 +20,12 @@ export default class SentimentAnalysis extends React.Component {
 			{value:679, name:'负'},
 		],
 		zheng:[],
-		fu:[]
+		fu:[],
+		content:contentStore.content
 	}
 
 	componentWillMount(){
-		sentimentAnalysisStore.fetchData('4日16时许，一段内容为长沙市望城区靖港镇干部与受灾群众发生争执的视频在群内传播。当晚19时许，微博上出现一则“长沙市望城区靖港镇干部呷着槟榔叼着烟，女干部撑着伞抗洪救灾”的贴文并附相关视频，随后在网上迅速转发传播。女干部撑伞嚼槟榔被警告7月5日晚，湖南省长沙市望城区网络宣传管理办公室官方微博发布《关于防汛期间靖港镇干部涉网舆情事件的调查情况说明》，经由望城区纪委成立调查组调查核实，在该事件处理过程中，靖港镇纪委书记邓治国一直在与社区居民高大立、高志立进行解释说明，并无人为其撑伞;靖港镇芦江社区刘壮确实存在抽烟嚼槟榔行为，也没有积极主动开展劝解工作，且该视频前一分半钟左右时间由一女性帮其撑伞。据刘壮本人回忆，因当天下雨，社区临聘人员熊丹在其不知情的情况下帮其撑伞，刘壮发现有人帮其撑伞后马上自己打伞。')
+		sentimentAnalysisStore.fetchData(contentStore.content)
 	}
 
 	componentDidUpdate(props) {
@@ -112,7 +114,7 @@ export default class SentimentAnalysis extends React.Component {
 				<div className="cf">
 					<div className="fl qfmlx" style={num==1?{backgroundColor:'#FF7F50'}:{backgroundColor:'#87CEEB'}}>{num==1?'正':'负'}</div>
 					<div className="fl qfmsz">{num==1?zheng_value:fu_value}</div>
-					<div className="fl qfmbfb">{num==1?(zheng_value/all).toFixed(2):(fu_value/all).toFixed(2)}%</div>
+					<div className="fl qfmbfb">{num==1?(zheng_value?(zheng_value/all).toFixed(2):0.00):(fu_value?(fu_value/all).toFixed(2):0.00)}%</div>
 				</div>
 				<div className="qfmlx-part">
 					{list}
