@@ -25,7 +25,6 @@ export default class SentimentAnalysis extends React.Component {
 	}
 
 	componentWillMount(){
-		console.log("*****************"+contentStore.content)
 		sentimentAnalysisStore.fetchData(contentStore.content)
 	}
 
@@ -115,7 +114,7 @@ export default class SentimentAnalysis extends React.Component {
 				<div className="cf">
 					<div className="fl qfmlx" style={num==1?{backgroundColor:'#FF7F50'}:{backgroundColor:'#87CEEB'}}>{num==1?'正':'负'}</div>
 					<div className="fl qfmsz">{num==1?zheng_value:fu_value}</div>
-					<div className="fl qfmbfb">{num==1?(zheng_value/all).toFixed(2):(fu_value/all).toFixed(2)}%</div>
+					<div className="fl qfmbfb">{num==1?(zheng_value?(zheng_value/all).toFixed(2):0.00):(fu_value?(fu_value/all).toFixed(2):0.00)}%</div>
 				</div>
 				<div className="qfmlx-part">
 					{list}
