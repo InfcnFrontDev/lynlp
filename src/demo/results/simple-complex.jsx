@@ -1,12 +1,10 @@
 import React from "react";
 import {observer} from "mobx-react";
 import simpleComplexStore from "../../mobx/simple-complex-store";
+import contentStore from "../../mobx/content-store";
+import Loading from "./loading";
 
-const items = [
-	{id: 'jianti', name: '简体'},
-	{id: 'fanti', name: '繁体'},
-	{id: 'pinyin', name: '拼音'}
-];
+const itemName = [{name: '简体', pinyin: 'jianti'}, {name: '繁体', pinyin: 'fanti'}, {name: '拼音', pinyin: 'pinyin'}]
 
 /**
  * 简、繁体与拼音
@@ -15,35 +13,34 @@ const items = [
 export default class SimpleComplex extends React.Component {
 
 	state = {
-		current: 'jianti'
-	};
+		currentItem: 'jianti'
+	}
 
-	onItemPress(id) {
+	onItemPress(item) {
 		this.setState({
-			current: id
+			currentItem: item.pinyin
 		})
 	}
 
+	//http://ly.infcn.com.cn/images/loader.gif
 	render() {
 		let {item} = this.props,
-			{current} = this.state,
-			{isFetching} = simpleComplexStore;
+			{isFetching} = simpleComplexStore,
+			{currentItem} = this.state;
 		return (
 			<div className="m-hk">
 				<div className="jpt cf">
 					<h3 className="fl"><i>{item.title}</i></h3>
 					<div className="jftab fr" id="mr-1">
-						{items.map((i) => {
+						{itemName.map((item, index) => {
 							return (
-								<span key={i.id} className={ current === i.id ? 'onsp' : ''}
-									  onClick={this.onItemPress.bind(this, i.id)}>{i.name}</span>
+								<span onClick={this.onItemPress.bind(this, item)} key={index}
+									  className={this.state.currentItem === item.pinyin ? 'onsp' : ''}>{item.name}</span>
 							)
 						})}
 					</div>
 				</div>
-				{isFetching ? <div style={{textAlign: 'center', paddingTop: 60, paddingBottom: 60}}>Loading...</div> :
-					<div className="jfp">{simpleComplexStore[current]}</div>
-				}
+				{isFetching ? <Loading/> : <div className="jfp">{simpleComplexStore[currentItem]}</div>}
 			</div>
 		)
 	}
