@@ -69,10 +69,16 @@ export default {
 	},
 	/**
 	 * 内容摘要
+	 * 词性分析
 	 */
 	summary(content) {
 		return new newPromise(config.apiPath + 'NlpDemoApi/summary', {
 			content
+		})
+	seg(type,content,dic) {
+
+		return new newPromise(config.apiPath + 'NlpDemoApi/seg', {
+			type,content,dic
 		})
 	},
 	/**
