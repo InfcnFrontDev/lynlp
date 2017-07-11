@@ -23,7 +23,7 @@ const items = [
 	{id: 'a-08', title: '语义关联', component: SemanticAssociation},
 	{id: 'a-09', title: '情感分析', component: SentimentAnalysis},
 	{id: 'a-10', title: '依存文法', component: DependencyGrammar},
-	{id: 'a-11', title: '敏感词标注', component: SensitiveWords}
+	// {id: 'a-11', title: '敏感词标注', component: SensitiveWords}
 ];
 
 export default class Result extends React.Component {
