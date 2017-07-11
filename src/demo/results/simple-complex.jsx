@@ -1,7 +1,6 @@
 import React from "react";
 import {observer} from "mobx-react";
 import simpleComplexStore from "../../mobx/simple-complex-store";
-import contentStore from "../../mobx/content-store";
 import Loading from "./loading";
 
 const itemName = [{name: '简体', pinyin: 'jianti'}, {name: '繁体', pinyin: 'fanti'}, {name: '拼音', pinyin: 'pinyin'}]
