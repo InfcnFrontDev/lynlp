@@ -2,7 +2,7 @@ import React from "react";
 import WordSegmentationStore from "../../mobx/word-segmentation-store"
 import "../../../styles/word.scss";
 import {observer} from "mobx-react";
-import Loading from "./loading";
+import Loading from "../loading";
 
 /**
  * 分词标注

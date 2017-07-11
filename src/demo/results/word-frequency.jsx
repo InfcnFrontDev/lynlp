@@ -3,7 +3,7 @@ import WordSegmentationStore from "../../mobx/word-segmentation-store"
 import echarts from "echarts";
 import {observer} from "mobx-react";
 import _ from "lodash";
-import Loading from "./loading";
+import Loading from "../loading";
 
 
 /**
