@@ -1,7 +1,7 @@
 import React from 'react';
 import {observer} from "mobx-react";
 import contentSummaryStore from '../../mobx/conent-summary-store'
-import Loading from './loading';
+import Loading from '../loading';
 /**
  * 内容摘要
  */
