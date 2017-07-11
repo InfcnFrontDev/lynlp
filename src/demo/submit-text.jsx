@@ -6,6 +6,7 @@ import contentSummaryStore from "../mobx/conent-summary-store";
 import textClassificationStore from "../mobx/text-classification-store";
 import keywordExtractStore from "../mobx/keyword-extract-store";
 import sentimentAnalysisStore from "../mobx/sentiment-analysis-store"
+import WordSegmentationStore from "../mobx/word-segmentation-store"
 
 
 @observer
@@ -44,6 +45,10 @@ export default class SubmitText extends React.Component {
 		textClassificationStore.fetchData(content);
 		keywordExtractStore.fetchData(content);
 		sentimentAnalysisStore.fetchData(content)
+		WordSegmentationStore.fetchData('nlp',content,'北京')
+		WordSegmentationStore.fetchData('to',content,'北京')
+		WordSegmentationStore.fetchData('index',content,'北京')
+		WordSegmentationStore.fetchData('base',content,'北京');
 
 	}
 

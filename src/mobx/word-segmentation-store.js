@@ -16,10 +16,26 @@ class WordSegmentationStore {
 
 		this.isFetching = true;
 		LynlpApi.seg(type,content,dic).then(res=>{
-			this.nlp=res.terms;
+
+			if(type=='nlp'){
+				this.nlp=res.terms;
+				this.isFetching = false;
+			}
+
+			if(type=='to'){
+				this.to=res.terms;
+				this.isFetching = false;
+			}
+
+			if(type=='index'){
+				this.index=res.terms;
+				this.isFetching = false;
+			}
+			if(type=='base'){
+				this.base=res.terms;
+				this.isFetching = false;
+			}
 		})
-
-
 	}
 
 

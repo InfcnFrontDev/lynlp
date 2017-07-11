@@ -3,6 +3,7 @@ import WordSegmentationStore from "../../mobx/word-segmentation-store"
 import echarts from "echarts";
 import {observer} from "mobx-react";
 import _ from "lodash";
+import Loading from "./loading";
 
 
 /**
@@ -83,7 +84,6 @@ export default class WordFrequency extends React.Component {
 		nArr.map(item=> data1.push(item.name));
 		let data2=[];
 		nArr.map(item=> data2.push(item.length));
-		console.log(document.getElementById(str))
 		data1=data1.reverse()
 		data2=data2.reverse()
 
@@ -138,9 +138,9 @@ export default class WordFrequency extends React.Component {
 
 	render() {
 		let {item} = this.props;
-		let terms=WordSegmentationStore.nlp;
+		let {nlp,isFetching}=WordSegmentationStore;
 
-		let cbb=_.groupBy(terms.$mobx.values,function(n){return n.natureStr.substr(0,1)});
+		let cbb=_.groupBy(nlp.$mobx.values,function(n){return n.natureStr.substr(0,1)});
 		let noun=cbb.n;
 		let verb=cbb.v;
 		let adjective=cbb.a;
@@ -167,39 +167,41 @@ export default class WordFrequency extends React.Component {
 						<span className={this.state.list?"onsp":''} onClick={()=>this.listShow()}>列表展示</span>
 					</div>
 				</div>
-				<div className="cpm cf" style={{display:'block'}}>
-					<div className="cp-1 fl">
-						<h3 className="h3-1">名词</h3>
+				{isFetching?<Loading/>:
+					<div className="cpm cf" style={{display:'block'}}>
+						<div className="cp-1 fl">
+							<h3 className="h3-1">名词</h3>
 
-						{this.state.graph?this.nounHtml:(
-							<div style={{width:'100%',height:320}} id="ming">
+							{this.state.graph?this.nounHtml:(
+								<div style={{width:'100%',height:320}} id="ming">
 
-							</div>
-						)}
+								</div>
+							)}
 
 
+						</div>
+						<div className="cp-2 fl" >
+							<h3 className="h3-1">动词</h3>
+							{this.state.graph?this.verbHtml:(
+								<div id="dong" style={{width:'100%',height:320}}>
+
+								</div>
+							)}
+
+
+						</div>
+						<div className="cp-3 fl">
+							<h3 className="h3-1">形容词</h3>
+							{this.state.graph?this.adjectiveHtml:(
+								<div style={{width:'100%',height:320}} id="xing">
+
+								</div>
+							)}
+
+
+						</div>
 					</div>
-					<div className="cp-2 fl" >
-						<h3 className="h3-1">动词</h3>
-						{this.state.graph?this.verbHtml:(
-							<div id="dong" style={{width:'100%',height:320}}>
-
-							</div>
-						)}
-
-
-					</div>
-					<div className="cp-3 fl">
-						<h3 className="h3-1">形容词</h3>
-						{this.state.graph?this.adjectiveHtml:(
-							<div style={{width:'100%',height:320}} id="xing">
-
-							</div>
-						)}
-
-
-					</div>
-				</div>
+				}
 				<div className="cpm cf">
 					<div className="cp-1 fl">
 						<h3 className="h3-1">名词<img src="img/cpt-4.png"/></h3>
