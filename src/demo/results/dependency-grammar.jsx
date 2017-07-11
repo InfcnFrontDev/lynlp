@@ -1,8 +1,10 @@
 import React from 'react';
+import {observer} from "mobx-react";
 
 /**
  * 依存文法
  */
+@observer
 export default class DependencyGrammar extends React.Component {
 
 	render() {
