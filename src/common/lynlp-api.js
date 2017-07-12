@@ -91,9 +91,10 @@ export default {
 	/**
 	 * 关键词抽取
 	 */
-	keyword(content) {
+	keyword(content, size) {
 		return new newPromise(config.apiPath + 'NlpDemoApi/keyword', {
-			content
+			content,
+			size
 		})
 	},
 	/**

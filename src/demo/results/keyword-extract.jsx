@@ -1,5 +1,4 @@
 import React from 'react';
-import WordCloud from 'react-d3-cloud';
 import {observer} from "mobx-react";
 import keywordExtractStore from "../../mobx/keyword-extract-store"
 import * as d3 from 'd3';
