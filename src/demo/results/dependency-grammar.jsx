@@ -21,7 +21,7 @@ export default class DependencyGrammar extends React.Component {
 		var  parse = document.getElementById("parse");
 
 		if(parse){
-			parse.innerHTML = '<div id="tDiv"></div>';
+			parse.innerHTML = '<div id="tDiv" style="width: '+(docData.entities.length*80)+'px;"></div>';
 
 			var webFontURLs = [
 				'brat/static/fonts/Astloch-Bold.ttf',
@@ -50,8 +50,8 @@ export default class DependencyGrammar extends React.Component {
 					<h3 className="fl"><i>{item.title}</i></h3>
 				</div>
 				{isFetching?<Loading/>:(
-					<div className="cf qfmkj" id="parse">
-						<div id="tDiv"></div>
+					<div className="cf qfmkj" id="parse"  style={{width:890,overflowX:'scroll',overflowY:'hidden'}}>
+						<div id="tDiv" style={{width:4800}}></div>
 					</div>
 				)}
 			</div>
