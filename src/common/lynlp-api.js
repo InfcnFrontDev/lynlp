@@ -28,6 +28,14 @@ const newPromise = function (url, params) {
 
 export default {
 	/**
+	 * 依存句法分析
+	 */
+	dependency(content) {
+		return new newPromise(config.apiPath + 'NlpDemoApi/dependency', {
+			content
+		})
+	},
+	/**
 	 * 情感分析
 	 */
 	sentiment(content) {
