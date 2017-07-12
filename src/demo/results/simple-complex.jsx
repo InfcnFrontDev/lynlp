@@ -3,7 +3,7 @@ import {observer} from "mobx-react";
 import simpleComplexStore from "../../mobx/simple-complex-store";
 import Loading from "../loading";
 
-const itemName = [{name: '简体', pinyin: 'jianti'}, {name: '繁体', pinyin: 'fanti'}, {name: '拼音', pinyin: 'pinyin'}]
+const itemName = [{name: '繁体', pinyin: 'fanti'},{name: '简体', pinyin: 'jianti'},  {name: '拼音', pinyin: 'pinyin'}]
 
 /**
  * 简、繁体与拼音
@@ -12,7 +12,7 @@ const itemName = [{name: '简体', pinyin: 'jianti'}, {name: '繁体', pinyin: '
 export default class SimpleComplex extends React.Component {
 
 	state = {
-		currentItem: 'jianti'
+		currentItem: 'fanti'
 	}
 
 	onItemPress(item) {
