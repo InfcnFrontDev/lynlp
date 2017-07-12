@@ -57,7 +57,7 @@ export const sentiment = {
 		name:'祝愿',
 		itemStyle:{
 			normal:{
-				color:'#FAFAD2',
+				color:'#aAaAD2',
 			}
 		},
 		type:1

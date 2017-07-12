@@ -6,6 +6,7 @@ import contentSummaryStore from "../mobx/conent-summary-store";
 import textClassificationStore from "../mobx/text-classification-store";
 import keywordExtractStore from "../mobx/keyword-extract-store";
 import sentimentAnalysisStore from "../mobx/sentiment-analysis-store"
+import dependencyGrammarStore from "../mobx/dependency-grammar-store"
 import WordSegmentationStore from "../mobx/word-segmentation-store"
 
 
@@ -46,6 +47,7 @@ export default class SubmitText extends React.Component {
 		keywordExtractStore.fetchData(content);
 		sentimentAnalysisStore.fetchData(content)
 		WordSegmentationStore.fetchData(content)
+		dependencyGrammarStore.fetchData(content)
 
 	}
 
