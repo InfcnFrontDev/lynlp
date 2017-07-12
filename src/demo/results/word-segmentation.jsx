@@ -3,176 +3,138 @@ import WordSegmentationStore from "../../mobx/word-segmentation-store"
 import "../../../styles/word.scss";
 import {observer} from "mobx-react";
 import Loading from "../loading";
+import _ from "lodash";
+
+// 词性定义
+const natureDefs = {
+	"Ag": {"code": "Ag", "name": "形语素", "color": "#ff7f50"},
+	"a": {"code": "a", "name": "形容词", "color": "#87cefa"},
+	"ad": {"code": "ad", "name": "副形词", "color": "#da70d6"},
+	"an": {"code": "an", "name": "名形词", "color": "#32cd32"},
+	"b": {"code": "b", "name": "区别词", "color": "#6495ed"},
+	"c": {"code": "c", "name": "连词", "color": "#ff69b4"},
+	"dg": {"code": "dg", "name": "副语素", "color": "#ba55d3"},
+	"d": {"code": "d", "name": "副词", "color": "#cd5c5c"},
+	"e": {"code": "e", "name": "叹词", "color": "#ffa500"},
+	"f": {"code": "f", "name": "方位词", "color": "#40e0d0"},
+	"g": {"code": "g", "name": "语素", "color": "#1e90ff"},
+	"h": {"code": "h", "name": "前接成分", "color": "#ff6347"},
+	"i": {"code": "i", "name": "成语", "color": "#7b68ee"},
+	"j": {"code": "j", "name": "简称略语", "color": "#00fa9a"},
+	"k": {"code": "k", "name": "后接成分", "color": "#ffd700"},
+	"l": {"code": "l", "name": "习用语", "color": "#6699FF"},
+	"m": {"code": "m", "name": "数词", "color": "#ff6666"},
+	"Ng": {"code": "Ng", "name": "名语素", "color": "#3cb371"},
+	"n": {"code": "n", "name": "名词", "color": "#b8860b"},
+	"nr": {"code": "nr", "name": "人名", "color": "#30e0e0"},
+	"ns": {"code": "ns", "name": "地名", "color": "#ff7f50"},
+	"nt": {"code": "nt", "name": "机构团体", "color": "#87cefa"},
+	"nz": {"code": "nz", "name": "其他专名", "color": "#da70d6"},
+	"o": {"code": "o", "name": "拟声词", "color": "#32cd32"},
+	"p": {"code": "p", "name": "介词", "color": "#6495ed"},
+	"q": {"code": "q", "name": "量词", "color": "#ff69b4"},
+	"r": {"code": "r", "name": "代词", "color": "#ba55d3"},
+	"s": {"code": "s", "name": "处所词", "color": "#cd5c5c"},
+	"tg": {"code": "tg", "name": "时语素", "color": "#ffa500"},
+	"t": {"code": "t", "name": "时间词", "color": "#40e0d0"},
+	"u": {"code": "u", "name": "助词", "color": "#1e90ff"},
+	"vg": {"code": "vg", "name": "动语素", "color": "#ff6347"},
+	"v": {"code": "v", "name": "动词", "color": "#7b68ee"},
+	"vd": {"code": "vd", "name": "副动词", "color": "#00fa9a"},
+	"vn": {"code": "vn", "name": "名动词", "color": "#ffd700"},
+	"w": {"code": "w", "name": "标点符号", "color": "#6699FF"},
+	"x": {"code": "x", "name": "非语素字", "color": "#ff6666"},
+	"y": {"code": "y", "name": "语气词", "color": "#3cb371"},
+	"z": {"code": "z", "name": "状态词", "color": "#b8860b"},
+	"un": {"code": "un", "name": "未知词", "color": "#30e0e0"},
+	// unknown
+	"unknown": {"code": "unknown", "name": "未知", "color": "#30e0e0"},
+
+};
 
 /**
  * 分词标注
  */
 @observer
 export default class WordSegmentation extends React.Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
-			nlp:false,
-			to:true,
-			index:true,
-			base:true,
-			terms:[]
+			types: [
+				{type: 'nlp', name: 'NLP分词'},
+				{type: 'to', name: '精准分词'},
+				{type: 'index', name: '索引分词'},
+				{type: 'base', name: '细颗粒度分词'},
+				{type: 'dic', name: '用户自定义词典分词'}
+			],
+			curType: 'nlp',
+			userDic: '',
 		};
-
 	}
-
-	componentWillMount(){
-
-		var that = this;
-
-		setTimeout(function(){
-			let {nlp} = WordSegmentationStore;
-			that.setState({
-				terms:nlp
-			})
-		},1000)
-
-
-
-	}
-	cixingArr(carr){
-		var arr=[];
- 		carr.map(item =>arr.push(item.natureStr.substr(0,1)));
-		Array.prototype.unique1 = function(){
-			var res = [this[0]];
-			for(var i = 1; i < this.length; i++){
-				var repeat = false;
-				for(var j = 0; j < res.length; j++){
-					if(this[i] == res[j]){
-						repeat = true;
-						break;
-					}
-				}
-				if(!repeat){
-					res.push(this[i]);
-				}
-			}
-			return res;
-		}
-		arr=arr.unique1();
-		let cixing=[
-			{
-				ci: '名词',
-				str:'n'
-
-			},
-			{
-				ci: '形容词',
-				str:'a'
-			},
-			{
-				ci: '动词',
-				str:'v'
-			},
-			{
-				ci: '介词',
-				str:'p'
-			},
-			{
-				ci: '助词',
-				str:'u'
-			},
-			{
-				ci: '标点符号',
-				str:'w'
-			},
-			{
-				ci: '数词',
-				str:'m'
-			},
-			{
-				ci: '叹词',
-				str:'e'
-			},
-			{
-				ci: '连词',
-				str:'c'
-			},
-			{
-				ci: '区别词',
-				str:'b'
-			},
-			{
-				ci: '量词',
-				str:'q'
-			},
-			{
-				ci: '后缀',
-				str:'k'
-			}
-		]
-		let cixingArr=[];
-		for(var i=0; i<arr.length; i++){
-			for(var j=0; j<cixing.length; j++){
-				if(cixing[j].str==arr[i]){
-					cixingArr.push({
-						ci:cixing[j].ci,
-						str:cixing[j].str
-					})
-				}
-			}
-		}
-		return cixingArr;
-	}
-
-	componentWillReceiveProps(){
-		let {nlp} = WordSegmentationStore;
-		this.setState({
-			terms:nlp
-		})
-	}
-
 
 	render() {
 		let {item} = this.props;
-		let {nlp,isFetching} = WordSegmentationStore;
-		let cixingArr=this.cixingArr(nlp.$mobx.values)
-		let cixingHtml=cixingArr.map(item => <dd key={item.str} className={item.str}>{item.ci}</dd>);
-		let html = this.state.terms.map((item,index)=> <dd key={index} className={item.natureStr}>{item.name}</dd>);
+		let {types, curType, userDic} = this.state;
+		let {isFetching} = WordSegmentationStore;
+
+		let categorys = WordSegmentationStore[curType].categorys;
+		let terms = WordSegmentationStore[curType].terms;
+		let newWords = WordSegmentationStore[curType].newWords;
+
 		return (
 			<div className="m-hk">
 				<div className="jpt cf">
 					<h3 className="fl"><i>{item.title}</i></h3>
 					<div className="jftab fr" id="mr-2">
-						<span className={this.state.nlp?'':"onsp"} onClick={()=>this.nlpHandle()} >NLP分词</span>
-						<span className={this.state.to?'':"onsp"} onClick={()=>this.toHandle()} >精准分词</span>
-						<span className={this.state.index?'':"onsp"} onClick={()=>this.indexHandle()} >索引分词</span>
-						<span className={this.state.base?'':"onsp"} onClick={()=>this.baseHandle()} >细颗粒度分词</span>
+						{types.map((t, i)=>(
+							<span key={i} className={curType == t.type ? "onsp" : ''}
+								  onClick={()=>this.setState({curType: t.type})}>{t.name}</span>
+						))}
 					</div>
 				</div>
 
-				{isFetching?<Loading/>:
+				{isFetching ? <Loading/> :
 					<div className="fcm">
 						<div className="col-xs-3">
 							<div style={{padding: 10, width: 'auto', height: 'auto'}}>
 								<h1 style={{color: '#979797', fontSize: 16, marginBottom: 20}}>词性类别图示：</h1>
 								<dl className="words">
-									{cixingHtml}
+									{categorys.map((t, i)=> {
+										if (natureDefs[t]) {
+											return (
+												<dd key={i} className={t}
+													style={{backgroundColor: natureDefs[t].color}}>{natureDefs[t].name}</dd>
+											)
+										}
+									})}
 								</dl>
 							</div>
 						</div>
 						<div className="col-xs-7" style={{height: 450, overflow: 'hidden', overflowY: 'scroll'}}>
 							<div style={{padding: 10, width: 'auto', height: 'auto'}}>
 								<dl className="words">
-									{html}
+									{terms.map((t, i)=> {
+										let natureDef = natureDefs[t.natureStr] || natureDefs["unknown"];
+										return (
+											<dd key={i} className={t.natureStr}
+												style={{backgroundColor: natureDef.color}}>{t.name}</dd>
+										)
+									})}
 								</dl>
 							</div>
 						</div>
 						<div className="col-xs-2">
 							<h1 style={{color: '#979797', fontSize: 16, marginBottom: 20}}>新词发现：</h1>
 							<dl className="words" style={{height: 150}}>
-								<dd className="yell">蔡英文</dd>
-								<dd className="yell">语言魔术</dd>
-								<dd className="yell">哈哈</dd>
+								{newWords.map((t, i)=>(
+									<dd key={i} className="yell">{t.name}</dd>
+								))}
 							</dl>
 							<h1 style={{color: '#979797', fontSize: 16, marginBottom: 20}}>用户自定义词：</h1>
-							<textarea style={{height: 100}}/>
-							<a href="#" className="tj-a fr">添加</a>
+							<textarea style={{height: 100}} value={userDic}
+									  onChange={(e) => this.setState({userDic: e.target.value})}/>
+							<a href="javascript:void(0)" className="tj-a fr" onClick={this.addUserDic.bind(this)}>添加</a>
 						</div>
 					</div>
 				}
@@ -180,47 +142,8 @@ export default class WordSegmentation extends React.Component {
 			</div>
 		)
 	}
-	nlpHandle(){
-		this.setState({
-			nlp:false,
-			to:true,
-			index:true,
-			base:true,
-			terms:WordSegmentationStore.nlp
-		})
 
-
-	}
-	toHandle(){
-		this.setState({
-			nlp:true,
-			to:false,
-			index:true,
-			base:true,
-			terms:WordSegmentationStore.to
-		})
-
-
-
-	}
-	indexHandle(){
-		this.setState({
-			nlp:true,
-			to:true,
-			index:false,
-			base:true,
-			terms:WordSegmentationStore.index
-		})
-
-	}
-	baseHandle(){
-		this.setState({
-			nlp:true,
-			to:true,
-			index:true,
-			base:false,
-			terms:WordSegmentationStore.base
-		})
-
+	addUserDic() {
+		WordSegmentationStore.addUserDic(this.state.userDic)
 	}
 }
