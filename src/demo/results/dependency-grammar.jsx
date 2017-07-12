@@ -21,7 +21,8 @@ export default class DependencyGrammar extends React.Component {
 		var  parse = document.getElementById("parse");
 
 		if(parse){
-			parse.innerHTML = '<div id="tDiv" style="width: '+(docData.entities.length*87)+'px;"></div>';
+			let len =docData.entities.length*(88-docData.entities.length/8);
+			parse.innerHTML = '<div id="tDiv" style="width: '+(len>890?len:890)+'px;"></div>';
 
 			var webFontURLs = [
 				'brat/static/fonts/Astloch-Bold.ttf',
