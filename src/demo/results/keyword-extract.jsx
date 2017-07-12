@@ -22,7 +22,7 @@ export default class KeywordExtract extends React.Component {
 				.font("Impact")
 				.words(cloudData.map(function(d) {
 					var freq = d.freq*15;
-					return {text: d.name, size: freq, test: "haha"};
+					return {text: d.name, size: freq};
 				}))
 				.padding(5)
 				.rotate(function() { return (~~(Math.random() * 6) - 3) * 30; })
