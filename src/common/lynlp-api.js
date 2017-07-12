@@ -104,5 +104,21 @@ export default {
 		return newPromise(config.apiPath + 'ContentExtractorApi/execute', {
 			url
 		});
+	},
+	/**
+	 * 语义关联
+	 */
+	semanticRecommend(content) {
+		return newPromise(config.apiPath + 'NlpDemoApi/semanticRecommend', {
+			content
+		});
+	},
+	/**
+	 * 语义关联-关系图
+	 */
+	semanticRecommendGraph(keyword) {
+		return newPromise(config.apiPath + 'NlpDemoApi/semanticRecommendGraph', {
+			keyword
+		});
 	}
 }
