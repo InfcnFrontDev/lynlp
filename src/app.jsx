@@ -10,13 +10,13 @@ import Nav from "./layout/nav";
 import Demo from "./demo/index";
 
 // 启用mobx日志输出
-enableLogging({
-	predicate: () => __DEV__,
-	action: true,
-	reaction: true,
-	transaction: true,
-	compute: true
-});
+// enableLogging({
+// 	predicate: () => __DEV__,
+// 	action: true,
+// 	reaction: true,
+// 	transaction: true,
+// 	compute: true
+// });
 
 @observer
 export default class App extends React.Component {

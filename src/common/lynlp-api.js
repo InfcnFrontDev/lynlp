@@ -2,7 +2,6 @@ import config from "./config";
 
 const newPromise = function (url, params) {
 
-
 	let formData = new FormData();
 	for (let key in params) {
 		formData.append(key, params[key]);
@@ -27,6 +26,14 @@ const newPromise = function (url, params) {
 }
 
 export default {
+	/**
+	 * 依存句法分析
+	 */
+	dependency(content) {
+		return new newPromise(config.apiPath + 'NlpDemoApi/dependency', {
+			content
+		})
+	},
 	/**
 	 * 情感分析
 	 */
@@ -84,9 +91,10 @@ export default {
 	/**
 	 * 关键词抽取
 	 */
-	keyword(content) {
+	keyword(content, size) {
 		return new newPromise(config.apiPath + 'NlpDemoApi/keyword', {
-			content
+			content,
+			size
 		})
 	},
 	/**

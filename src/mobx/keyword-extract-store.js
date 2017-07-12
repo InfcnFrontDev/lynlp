@@ -6,7 +6,7 @@ class KeywordExtractStore {
 
 	@action
 	fetchData(content){
-		LynlpApi.keyword(content).then(res => {
+		LynlpApi.keyword(content, 50).then(res => {
 			this.keyword = res;
 		});
 	}

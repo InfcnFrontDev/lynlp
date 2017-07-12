@@ -18,8 +18,9 @@
   "homepage": "http://192.168.10.158/InfcnFrontDev/lynlp#readme",
   "dependencies": {
     "axios": "^0.16.2",
+    "d3": "^4.9.1",
+    "d3-cloud": "^1.2.4",
     "echarts": "^3.6.2",
-    "lodash": "^4.17.4",
     "mobx": "^3.1.16",
     "mobx-logger": "^0.6.0",
     "mobx-react": "^4.2.2",
@@ -27,7 +28,6 @@
     "node-sass": "^4.3.0",
     "prop-types": "^15.5.10",
     "react": "15.4.2",
-    "react-d3-cloud": "^0.4.1",
     "react-dom": "15.4.2",
     "react-loading": "^0.1.4",
     "svg.js": "^2.6.2"
