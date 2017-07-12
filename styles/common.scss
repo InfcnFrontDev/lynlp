@@ -406,6 +406,22 @@ a:focus {
   height: 150px;
   line-height: 28px;
 }
+#graph line {
+  stroke: #666;
+}
+
+#graph .node {
+  pointer-events: all;
+}
+
+#graph circle {
+  stroke: none;
+  stroke-width: 40px;
+}
+
+#graph .node text {
+  font: 8px sans-serif;
+}
 
 .jpt {
   padding-bottom: 15px;
