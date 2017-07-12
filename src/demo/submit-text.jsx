@@ -46,12 +46,8 @@ export default class SubmitText extends React.Component {
 		textClassificationStore.fetchData(content);
 		keywordExtractStore.fetchData(content);
 		sentimentAnalysisStore.fetchData(content)
+		WordSegmentationStore.fetchData(content)
 		dependencyGrammarStore.fetchData(content)
-
-		WordSegmentationStore.fetchData('nlp',content,'北京')
-		WordSegmentationStore.fetchData('to',content,'北京')
-		WordSegmentationStore.fetchData('index',content,'北京')
-		WordSegmentationStore.fetchData('base',content,'北京');
 
 	}
 

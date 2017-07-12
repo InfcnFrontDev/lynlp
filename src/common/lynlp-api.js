@@ -1,7 +1,6 @@
 import config from "./config";
 
 const newPromise = function (url, params) {
-	console.log(params)
 
 	let formData = new FormData();
 	for (let key in params) {
