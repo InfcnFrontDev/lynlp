@@ -2,6 +2,7 @@ import React from 'react';
 import {observer} from "mobx-react";
 import dependencyGrammarStore from "../../mobx/dependency-grammar-store"
 import contentStore from "../../mobx/content-store";
+import Loading from "../loading";
 
 
 /**
@@ -35,6 +36,7 @@ export default class DependencyGrammar extends React.Component {
 			);
 		}
 
+
 	}
 
 	render() {
@@ -47,7 +49,7 @@ export default class DependencyGrammar extends React.Component {
 				<div className="jpt cf">
 					<h3 className="fl"><i>{item.title}</i></h3>
 				</div>
-				{isFetching?null:(
+				{isFetching?<Loading/>:(
 					<div className="cf qfmkj" id="parse">
 						<div id="tDiv"></div>
 					</div>
