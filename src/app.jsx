@@ -11,7 +11,7 @@ import Demo from "./demo/index";
 
 // 启用mobx日志输出
 enableLogging({
-	predicate: () => __DEV__,
+	predicate: () => __DEV__,//process.env.NODE_ENV !== 'production'
 	action: true,
 	reaction: true,
 	transaction: true,
