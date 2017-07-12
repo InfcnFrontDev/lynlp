@@ -33,6 +33,7 @@ export default class SentimentAnalysis extends React.Component {
 		let data1 = Array.prototype.slice.call(data, 0);
 		let data2 = Array.prototype.slice.call(data_type, 0);
 		var myChart = echarts.init(document.getElementById('qgfxbt'));
+		let a=''
 		var option = {
 			tooltip: {
 				trigger: 'item',
@@ -44,7 +45,7 @@ export default class SentimentAnalysis extends React.Component {
 					type:'pie',
 					selectedMode: 'single',
 					radius: [0, '22%'],
-
+					minAngle:3,
 					label: {
 						normal: {
 							position: 'inner'
