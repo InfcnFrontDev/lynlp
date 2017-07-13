@@ -3,6 +3,7 @@ import LynlpApi from "../common/lynlp-api"
 
 class EntityExtractStore {
 	@observable isFetching= false;
+	@observable currentItem= '图形展示';
 	@observable	entity={};
 
 	@action

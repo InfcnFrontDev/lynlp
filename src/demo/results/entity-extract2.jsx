@@ -9,16 +9,11 @@ import Loading from "../loading";
 /**
  * 实体抽取
  */
-const itemName = [{'name': '图形展示'}, {'name': '列表展示'}]
-
 @observer
 export default class EntityExtract extends React.Component {
-
-
-	componentWillMount() {
+	componentWillMount(){
 		EntityExtractStore.fetchData(contentStore.content)
 	}
-
 	componentDidUpdate(props) {
 
 		var data = [{
@@ -27,12 +22,11 @@ export default class EntityExtract extends React.Component {
 			name: 'root',
 			value: 20,
 			symbolSize: 80
-		}], links = [], index = 1, index1 = 10
-		let entityData = EntityExtractStore.entity
-
-		function obj(val, k) {
+		}], links = [],index=1,index1=10
+		let entityData =EntityExtractStore.entity
+		function obj(val,k) {
 			val.forEach(function (v) {
-				var obj3 = {}, obj4 = {}
+				var obj3 = {},obj4 = {}
 				obj3.id = index1++
 				obj3.category = 2
 				obj3.name = Object.keys(v)[0]
@@ -45,19 +39,18 @@ export default class EntityExtract extends React.Component {
 
 			})
 		}
-
 		Object.keys(entityData).forEach(function (key) {
-			var obj1 = {}, obj2 = {}
+			var obj1 = {},obj2 = {}
 			obj1.id = index++
 			obj1.category = 1
 			obj1.name = key
 			obj1.value = 20
 			obj1.symbolSize = 70
-			obj2.source = index - 1
+			obj2.source = index-1
 			obj2.target = 0
 			data.push(obj1)
 			links.push(obj2)
-			obj(entityData[key], index - 1)
+			obj(entityData[key],index-1)
 		})
 
 		var myChart = echarts.init(document.getElementById('main'));
@@ -78,7 +71,7 @@ export default class EntityExtract extends React.Component {
 						name: '实体内容',
 						icon: 'circle'
 					}
-				]
+					]
 			},
 			series: [{
 				type: 'graph', //关系图
@@ -155,75 +148,16 @@ export default class EntityExtract extends React.Component {
 		myChart.setOption(option);
 	}
 
-	refresh(name){
-		EntityExtractStore.currentItem = name
-	}
-
 	render() {
 		let {item} = this.props;
-		let {isFetching,currentItem} = EntityExtractStore
-		let self = this
+		let {isFetching} = EntityExtractStore
 		return (
 			<div className="m-hk">
 				<div className="jpt cf">
 					<h3 className="fl"><i>{item.title}</i></h3>
-					<div className="jftab fr">
-						{itemName.map((item, i) => {
-							return (
-								<span onClick={this.refresh.bind(this,item.name)} key={i} className={currentItem === item.name ? 'onsp' : ''}>{item.name}</span>
-							)
-						})}
-					</div>
 				</div>
 				{
-					isFetching?<Loading/>:(currentItem == '图形展示' ?<div id="main" style={{height: 600}}></div> :
-						<div style={{height: 600}} className="scm">
-							<dl className="dl1">
-								<dt>人名</dt>
-								<dd>赖德清</dd>
-								<dd>张岩</dd>
-							</dl>
-							<dl className="dl2">
-								<dt>地名</dt>
-								<dd>中国</dd>
-								<dd>台湾</dd>
-								<dd>美国</dd>
-								<dd>北京</dd>
-								<dd>中国台北</dd>
-								<dd>福建</dd>
-							</dl>
-							<dl className="dl3">
-								<dt>机构名</dt>
-								<dd>赖德清</dd>
-								<dd>张岩</dd>
-							</dl>
-							<dl className="dl1">
-								<dt>时间</dt>
-								<dd>赖德清</dd>
-								<dd>张岩</dd>
-							</dl>
-							<dl className="dl2">
-								<dt>分类tags</dt>
-								<dd>赖德清</dd>
-								<dd>张岩</dd>
-							</dl>
-							<dl className="dl3">
-								<dt>关键词</dt>
-								<dd>赖德清</dd>
-								<dd>张岩</dd>
-							</dl>
-							<dl className="dl1">
-								<dt>电话号码</dt>
-								<dd>赖德清</dd>
-								<dd>张岩</dd>
-							</dl>
-							<dl className="dl2">
-								<dt>车牌号码</dt>
-								<dd>赖德清</dd>
-								<dd>张岩</dd>
-							</dl>
-						</div>
-					)
+					isFetching ? <Loading/>:(<div id="main" style={{height: 600}}></div>)
 				}
 
 			</div>
