@@ -40,147 +40,83 @@ export default class SemanticAssociation extends React.Component {
 
 	}
 	ygTu(data){
+/*		let Data=[{"doc_count":137,"key":"教育"},{"doc_count":80,"key":"保险"},{"doc_count":65,"key":"社保"},{"doc_count":59,"key":"环保"},{"doc_count":48,"key":"房地产"},{"doc_count":38,"key":"政府信箱"},{"doc_count":37,"key":"劳动合同"},{"doc_count":28,"key":"养老保险"},{"doc_count":28,"key":"医疗保险"},{"doc_count":27,"key":"劳动保障"}]
 
+		var nodes = [{
+			name: '9898',
+			value: 10,
 
-
-		/*let nodes = [];
-		let links = [];
-		let constMaxDepth = 2;
-		let constMaxChildren = 7;
-		let constMinChildren = 4;
-		let constMaxRadius = 10;
-		let constMinRadius = 2;
-
-		function rangeRandom(min, max) {
-			return Math.random() * (max - min) + min;
-		}
-
-		function createRandomNode(depth) {
-			let node = {
-				name : 'NODE_' + nodes.length,
-				value : rangeRandom(constMinRadius, constMaxRadius),
-				// Custom properties
-				id : nodes.length,
-				depth : depth,
-				category : depth === constMaxDepth ? 0 : 1
-			}
-			nodes.push(node);
-
-			return node;
-		}
-
-		function forceMockThreeData() {
-			var depth = 0;
-			var rootNode = {
-				name : 'ROOT',
-				value : rangeRandom(constMinRadius, constMaxRadius),
-				// Custom properties
-				id : 0,
-				depth : 0,
-				category : 2
-			}
-			nodes.push(rootNode);
-
-			function mock(parentNode, depth) {
-				var nChildren = Math.round(rangeRandom(constMinChildren, constMaxChildren));
-
-				for (var i = 0; i < nChildren; i++) {
-					var childNode = createRandomNode(depth);
-					links.push({
-						source : parentNode.id,
-						target : childNode.id,
-						weight : 1
-					});
-					if (depth < constMaxDepth) {
-						mock(childNode, depth + 1);
-					}
+		}]
+		Data.map((item,index)=>{
+			nodes.push({
+					"name": item.key,
+					"value": item.doc_count
 				}
-			}
+			)
+		})
 
-			mock(rootNode, 0);
-		}
+		var links=[];
+		Data.map((item,index)=>{
+			links.push({
+					"source": item.key,
+					"target":'9898',
+					weight:1
+				}
+			)
+		})
 
-		forceMockThreeData();
+		//===================
+	let	option = {
+			tooltip : {
+				trigger: 'item',
+				formatter: '{a} : {b}'
+			},
+			series : [
+				{
+					type:'force',
+					name : "主题关联",
+					ribbonType: false,
 
+					itemStyle: {
+						normal: {
+							label: {
+								show: true,
+								textStyle: {
+									color: '#333'
+								}
+							},
+							nodeStyle : {
+								brushType : 'both',
+								borderColor : 'rgba(255,215,0,0.4)',
+								borderWidth : 1
+							}
+						},
 
+					},
+					minRadius : 15,
+					maxRadius : 25,
+					gravity: 1.1,
 
+					draggable: false,
+					linkSymbol: 'arrow',
+					steps: 10,
+					coolDown: 0.9,
+					//preventOverlap: true,
+					initial:[150,150],
+					fixX:true,
+					fixY:true,
+					nodes:nodes,
+					links:links
+				}
+			]
+		};
 
-
-
-		/!*let	option = {
-                title : {
-                    text: '某地区蒸发量和降水量',
-                    subtext: '纯属虚构'
-                },
-                tooltip : {
-                    trigger: 'axis'
-                },
-                legend: {
-                    data:['蒸发量','降水量']
-                },
-                toolbox: {
-                    show : true,
-                    feature : {
-                        mark : {show: true},
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                calculable : true,
-                xAxis : [
-                    {
-                        type : 'category',
-                        data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : [
-                    {
-                        name:'蒸发量',
-                        type:'bar',
-                        data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-                        markPoint : {
-                            data : [
-                                {type : 'max', name: '最大值'},
-                                {type : 'min', name: '最小值'}
-                            ]
-                        },
-                        markLine : {
-                            data : [
-                                {type : 'average', name: '平均值'}
-                            ]
-                        }
-                    },
-                    {
-                        name:'降水量',
-                        type:'bar',
-                        data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
-                        markPoint : {
-                            data : [
-                                {name : '年最高', value : 182.2, xAxis: 7, yAxis: 183, symbolSize:18},
-                                {name : '年最低', value : 2.3, xAxis: 11, yAxis: 3}
-                            ]
-                        },
-                        markLine : {
-                            data : [
-                                {type : 'average', name : '平均值'}
-                            ]
-                        }
-                    }
-                ]
-            };*!/
 
 
 		var myChart = echarts.init(document.getElementById('ygtu'));
-			myChart.setOption(option);
+		myChart.setOption(option);*/
 
-*/
+
 	}
 	render() {
 		let data=semanticAssociationStore.recommend;
