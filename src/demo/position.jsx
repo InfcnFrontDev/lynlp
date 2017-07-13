@@ -5,9 +5,9 @@ export default class Position extends React.Component {
 		return (
 			<div className="dqw cf">
 				<span>您现在的位置：</span>
-				<a href="#">首页</a>
+				<span>首页</span>
 				<span> &gt; </span>
-				<a href="#">在线演示</a>
+				<span>在线演示</span>
 			</div>
 		)
 	}

@@ -1,4 +1,5 @@
 import React from "react";
+import jq from "jquery";
 
 export default class GoTop extends React.Component {
 	render() {
@@ -8,11 +9,8 @@ export default class GoTop extends React.Component {
 	}
 
 	gotTop() {
-		head.ready(function(){
-			$("html, body").animate({
-				scrollTop: 0
-			}, {duration: 500, easing: "swing"})
-		})
-
+		jq("html, body").animate({
+			scrollTop: 0
+		}, {duration: 300, easing: "swing"})
 	}
 }

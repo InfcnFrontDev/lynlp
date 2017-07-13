@@ -34,8 +34,8 @@ class SemanticAssociationStore {
 	fetchDataGraph(keyword) {
 		 this.fetchingTu=true;
 		LynlpApi.semanticRecommendGraph(keyword).then(result => {
-			this.fetchingTu=false;
 			this.graph= result;
+			this.fetchingTu=false;
 		});
 
 	}

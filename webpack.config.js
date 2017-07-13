@@ -6,7 +6,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var DashboardPlugin = require('webpack-dashboard/plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const HOST = process.env.HOST || "192.168.3.7";
+const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || "3000";
 
 loaders.push({
