@@ -113,6 +113,14 @@ export default {
 		})
 	},
 	/**
+	 * 实体抽取
+	 */
+	entity(content) {
+		return new newPromise(config.apiPath + 'NlpDemoApi/entity', {
+			content
+		})
+	},
+	/**
 	 * 关键词抽取
 	 */
 	keyword(content, size) {

@@ -1,5 +1,18 @@
 .yell{
-    background-color: #ffff00
+    background-color: #ffff00;
+    display: inline;
+}
+.newwords dd{
+    display: inline-block;
+    padding: 0 11px;
+    height: 26px;
+    font-size: 14px;
+    line-height: 26px;
+    margin:5px;
+    white-space:nowrap;
+    font-size: 12px;
+
+
 }
 .n, .ng, .nl, .nr,
 .nr1, .nr2, .nrf, .nrj,
