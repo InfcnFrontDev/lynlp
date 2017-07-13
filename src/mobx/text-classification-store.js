@@ -11,7 +11,6 @@ class TextClassificationStore {
 		LynlpApi.category(content).then(res => {
 			this.category = res;
 			this.isFetching= false;
-
 		});
 	}
 }

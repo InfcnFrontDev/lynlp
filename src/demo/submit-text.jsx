@@ -9,6 +9,7 @@ import sentimentAnalysisStore from "../mobx/sentiment-analysis-store"
 import semanticAssociationStore from "../mobx/semantic-association-store"
 import dependencyGrammarStore from "../mobx/dependency-grammar-store"
 import WordSegmentationStore from "../mobx/word-segmentation-store"
+import EntityExtractStore from "../mobx/entity-extract-store"
 
 
 
@@ -51,7 +52,7 @@ export default class SubmitText extends React.Component {
 		semanticAssociationStore.fetchData(content);
 		WordSegmentationStore.fetchData(content)
 		dependencyGrammarStore.fetchData(content)
-
+		EntityExtractStore.fetchData(content)
 
 	}
 

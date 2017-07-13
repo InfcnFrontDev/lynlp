@@ -9,8 +9,8 @@ class KeywordExtractStore {
 	fetchData(content){
 		this.isFetching = true;
 		LynlpApi.keyword(content, 50).then(res => {
-			this.isFetching = false
 			this.keyword = res;
+			this.isFetching = false
 		});
 	}
 }

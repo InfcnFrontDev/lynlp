@@ -2,13 +2,59 @@ import React from 'react';
 import {observer} from "mobx-react";
 import * as d3 from 'd3';
 import echarts from 'echarts';
+import EntityExtractStore from "../../mobx/entity-extract-store";
+import contentStore from "../../mobx/content-store";
+import Loading from "../loading";
 
 /**
  * 实体抽取
  */
 @observer
 export default class EntityExtract extends React.Component {
-	componentDidMount(props) {
+	componentWillMount(){
+		EntityExtractStore.fetchData(contentStore.content)
+	}
+	componentDidUpdate(props) {
+
+		var data = [{
+			id: 0,
+			category: 0,
+			name: 'root',
+			value: 20,
+			symbolSize: 80
+		}],links = [],index=1,index1=20
+		let entityData =EntityExtractStore.entity
+		function obj(val) {
+			alert(JSON.stringify(val))
+			Object.keys(val).forEach(function (k) {
+				var obj3 = {},obj4 = {}
+				obj3.id = index1++
+				obj3.category = 2
+				obj3.name = val[k]
+				obj3.value = 20
+				obj3.symbolSize = 60
+				obj4.source = index1-1
+				obj4.target = index-1
+				data.push(obj3)
+				links.push(obj4)
+				alert('111')
+
+			})
+		}
+		Object.keys(entityData).forEach(function (key) {
+			var obj1 = {},obj2 = {}
+			obj1.id = index++
+			obj1.category = 1
+			obj1.name = key
+			obj1.value = 20
+			obj1.symbolSize = 70
+			obj2.source = index-1
+			obj2.target = 0
+			data.push(obj1)
+			links.push(obj2)
+			obj(entityData[key])
+		})
+		alert(JSON.stringify(links))
 		var myChart = echarts.init(document.getElementById('main'));
 		var option = {
 			legend: {
@@ -16,18 +62,15 @@ export default class EntityExtract extends React.Component {
 				data: [
 					{
 						name: 'root',
-
 						icon: 'rect'//'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
 
 					},
 					{
 						name: '实体类型',
-
 						icon: 'roundRect'
 					},
 					{
 						name: '实体内容',
-
 						icon: 'circle'
 					}
 					]
@@ -59,77 +102,6 @@ export default class EntityExtract extends React.Component {
 
 					}
 				},
-				data: [
-					{
-						id: 0,
-						category: 0,
-						name: 'root',
-						value: 20,
-						symbolSize: 80
-					},
-					{
-						id: 1,
-						category: 1,
-						name: '时间',
-						value: 20,
-						symbolSize: 70
-					},
-					{
-						id: 2,
-						category: 2,
-						name: '1',
-						value: 20,
-						symbolSize: 60,
-					},
-					{
-						id: 3,
-						category: 2,
-						name: '2',
-						symbol: 'circle',
-						value: 20,
-						symbolSize: 60
-					}, {
-						id: 4,
-						category: 1,
-						name: '地点',
-						value: 20,
-						symbolSize: 70
-					},
-					{
-						id: 5,
-						category: 2,
-						name: '3',
-						value: 20,
-						symbolSize: 60,
-					},
-					{
-						id: 6,
-						category: 2,
-						name: '4',
-						value: 20,
-						symbolSize: 60,
-					},
-					{
-						id: 7,
-						category: 1,
-						name: '人物',
-						value: 20,
-						symbolSize: 70
-					},
-					{
-						id: 8,
-						category: 2,
-						name: '3',
-						value: 20,
-						symbolSize: 60,
-					},{
-						id: 9,
-						category: 2,
-						name: '3',
-						value: 20,
-						symbolSize: 60,
-					}
-					],
 				categories: [
 					{
 						name: 'root',
@@ -143,35 +115,108 @@ export default class EntityExtract extends React.Component {
 						name: '实体内容',
 						symbol: 'roundRect'
 					}],
-				links: [ //edges是其别名代表节点间的关系数据。
-					{
-						source: 1,
-						target: 0
-					}, {
-						source: 4,
-						target: 0
-					}, {
-						source: 7,
-						target: 0
-					}, {
-						source: 2,
-						target: 1
-					}, {
-						source: 3,
-						target: 1
-					}, {
-						source: 5,
-						target: 4
-					}, {
-						source: 6,
-						target: 4
-					}, {
-						source: 8,
-						target: 7
-					}, {
-						source: 9,
-						target: 7
-					}]
+				data: data,
+				links: links
+				// data: [
+				// 	{
+				// 		id: 0,
+				// 		category: 0,
+				// 		name: 'root',
+				// 		value: 20,
+				// 		symbolSize: 80
+				// 	},
+				// 	{
+				// 		id: 1,
+				// 		category: 1,
+				// 		name: '时间',
+				// 		value: 20,
+				// 		symbolSize: 70
+				// 	},
+				// 	{
+				// 		id: 2,
+				// 		category: 2,
+				// 		name: '1',
+				// 		value: 20,
+				// 		symbolSize: 60,
+				// 	},
+				// 	{
+				// 		id: 3,
+				// 		category: 2,
+				// 		name: '2',
+				// 		symbol: 'circle',
+				// 		value: 20,
+				// 		symbolSize: 60
+				// 	}, {
+				// 		id: 4,
+				// 		category: 1,
+				// 		name: '地点',
+				// 		value: 20,
+				// 		symbolSize: 70
+				// 	},
+				// 	{
+				// 		id: 5,
+				// 		category: 2,
+				// 		name: '3',
+				// 		value: 20,
+				// 		symbolSize: 60,
+				// 	},
+				// 	{
+				// 		id: 6,
+				// 		category: 2,
+				// 		name: '4',
+				// 		value: 20,
+				// 		symbolSize: 60,
+				// 	},
+				// 	{
+				// 		id: 7,
+				// 		category: 1,
+				// 		name: '人物',
+				// 		value: 20,
+				// 		symbolSize: 70
+				// 	},
+				// 	{
+				// 		id: 8,
+				// 		category: 2,
+				// 		name: '3',
+				// 		value: 20,
+				// 		symbolSize: 60,
+				// 	},{
+				// 		id: 9,
+				// 		category: 2,
+				// 		name: '3',
+				// 		value: 20,
+				// 		symbolSize: 60,
+				// 	}
+				// 	],
+				// links: [ //edges是其别名代表节点间的关系数据。
+				// 	{
+				// 		source: 1,
+				// 		target: 0
+				// 	}, {
+				// 		source: 4,
+				// 		target: 0
+				// 	}, {
+				// 		source: 7,
+				// 		target: 0
+				// 	}, {
+				// 		source: 2,
+				// 		target: 1
+				// 	}, {
+				// 		source: 3,
+				// 		target: 1
+				// 	}, {
+				// 		source: 5,
+				// 		target: 4
+				// 	}, {
+				// 		source: 6,
+				// 		target: 4
+				// 	}, {
+				// 		source: 8,
+				// 		target: 7
+				// 	}, {
+				// 		source: 9,
+				// 		target: 7
+				// 	}]
 
 			}],
 			lineStyle: { //==========关系边的公用线条样式。
@@ -208,13 +253,16 @@ export default class EntityExtract extends React.Component {
 
 	render() {
 		let {item} = this.props;
+		let {isFetching} = EntityExtractStore
 		return (
 			<div className="m-hk">
 				<div className="jpt cf">
 					<h3 className="fl"><i>{item.title}</i></h3>
 				</div>
-				<div id="main" style={{height: 600}}>
-				</div>
+				{
+					isFetching ? <Loading/>:(<div id="main" style={{height: 600}}></div>)
+				}
+
 			</div>
 		)
 	}
