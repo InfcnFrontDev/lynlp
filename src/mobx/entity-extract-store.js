@@ -1,17 +1,17 @@
 import {observable, runInAction, computed, action, reaction, autorun} from "mobx";
 import LynlpApi from "../common/lynlp-api"
+import _ from "lodash";
 
 class EntityExtractStore {
-	@observable isFetching= false;
-	@observable currentItem= '图形展示';
-	@observable	entity={};
+	@observable isFetching = false;
+	@observable entity = {};
 
 	@action
-	fetchData(content){
+	fetchData(content) {
 		this.isFetching = true;
-		LynlpApi.entity(content).then(res => {
-			this.entity = res;
-			this.isFetching = false
+		LynlpApi.entity(content).then((result) => {
+			this.entity = result;
+			this.isFetching = false;
 		});
 	}
 }

@@ -12,7 +12,6 @@ import WordSegmentationStore from "../mobx/word-segmentation-store"
 import EntityExtractStore from "../mobx/entity-extract-store"
 
 
-
 @observer
 export default class SubmitText extends React.Component {
 
@@ -20,10 +19,11 @@ export default class SubmitText extends React.Component {
 		super(props)
 		this.state = {
 			url: '',
-			get:false,
+			get: false,
 		}
 	}
-	componentWillMount(){
+
+	componentWillMount() {
 		this.submitText()
 	}
 
@@ -40,17 +40,32 @@ export default class SubmitText extends React.Component {
 					<a href="javascript:void(0)" className="zq-a fr" onClick={this.grabContent.bind(this)}>抓取</a>
 					<input type="url" className="txt-1 fr" placeholder="网页URL......" value={this.state.url}
 						   onChange={(e) => this.setState({url: e.target.value})}/>
-					{isFetching?<div style={{width:80,height:80,position:'absolute',right: 560,top:120,textAlign:'center',backgroundColor:'rgba(0,0,0,.7)',borderRadius:5}}>
-						<div style={{width:80,height:50,textAlign:'center'}}><img className="fr" style={{width:50,height:50,display:'inline',marginRight:15}} src={require('../../images/3.gif')} alt=""/></div>
-						<div style={{width:80,textAlign:'center',color:'#fff'}}>加载中....</div>
-					</div>:null}
+					{isFetching ? <div style={{
+						width: 120,
+						height: 80,
+						position: 'absolute',
+						right: 560,
+						top: 120,
+						textAlign: 'center',
+						backgroundColor: 'rgba(0,0,0,.7)',
+						borderRadius: 5
+					}}>
+						<div style={{width: 120, height: 50, textAlign: 'center'}}><img className="fr" style={{
+							width: 35,
+							height: 35,
+							display: 'inline',
+							marginRight: 40,
+							marginTop: 8,
+						}} src={require('../../images/3.gif')} alt=""/></div>
+						<div style={{width: 120, textAlign: 'center', color: '#fff'}}>网页抓取中....</div>
+					</div> : null}
 
 				</div>
 			</div>
 		)
 	}
 
-	submitText(){
+	submitText() {
 		let {content} = contentStore;
 		simpleComplexStore.fetchData(content);
 		contentSummaryStore.fetchData(content);
@@ -61,8 +76,6 @@ export default class SubmitText extends React.Component {
 		WordSegmentationStore.fetchData(content)
 		dependencyGrammarStore.fetchData(content)
 		EntityExtractStore.fetchData(content)
-
-
 	}
 
 	grabContent() {
@@ -71,6 +84,6 @@ export default class SubmitText extends React.Component {
 			alert('请输入网址。')
 			return
 		}
-		contentStore.grabContent(url);
+		contentStore.grabContent(url, ()=> this.submitText());
 	}
 }
