@@ -14,16 +14,17 @@ export default class SemanticAssociation extends React.Component {
 		super(props);
 		this.state = {
 			current: 0,
-			item1:''
 		};
+		this.now=1;
 	}
 
 	componentWillUpdate(nextProps){
-		if(this.state.item1!=semanticAssociationStore.keyItem&&semanticAssociationStore.keyItem!=""){
-			this.setState({
-				item1:semanticAssociationStore.keyItem
-			})
+		if(this.now==semanticAssociationStore.changeCurrent){
 			semanticAssociationStore.fetchDataGraph(semanticAssociationStore.keyItem);
+			this.setState({
+				current:0
+			});
+			this.now++;
 		}
 	}
 
@@ -45,20 +46,25 @@ export default class SemanticAssociation extends React.Component {
 
 	}
 	ygTu(data){
+
 	let node=[];
-		let obj={
-			id:"解决方案",
-			category: 0,
-			name:"解决方案",
-			symbolSize: 40
-		};
+
+		let obj={};
+		let arr={};
+		data.links.map((item,index)=>{
+			if(item.from==this.key){
+				arr[item.to]=1;
+			}
+		});
+
 		data.nodes.map((item,index)=>{
-			obj={
-				id:item.name,
-				category: 0,
-				name:item.name,
-				symbolSize: 40
-			};
+				obj={
+					id:item.name,
+					category:index==0?0:(arr[item.name]?1:2),
+					name:item.name,
+					symbolSize: 40
+				};
+
 			node.push(obj)
 		});
 		let links=[];
@@ -82,16 +88,13 @@ export default class SemanticAssociation extends React.Component {
 					{
 						name: '解决方案',
 						icon: 'rect'//'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
-
 					},
 					{
 						name: '关联词',
-
 						icon: 'roundRect'
 					},
 					{
 						name: '相关联词',
-
 						icon: 'circle'
 					}
 				]
@@ -123,21 +126,21 @@ export default class SemanticAssociation extends React.Component {
 
 					}
 				},
-				data:node,
+
 				categories: [
 					{
 						name: '解决方案',
 						symbol: 'rect',
-						color:'blue'
+						label: { //标签样式
+						}
 					}, {
 						name: '关联词',
 						symbol: 'rect',
-						color:'pink'
 					}, {
 						name: '相关联词',
 						symbol: 'roundRect',
-						color:'yellow'
 					}],
+				data:node,
 				links:links
 
 			}],
@@ -173,6 +176,9 @@ export default class SemanticAssociation extends React.Component {
 		var dom_yg =document.getElementById('yg');
 		if(dom_yg){
 			var myChart = echarts.init(dom_yg);
+			/*if(this.key==node[0].name){
+				myChart.setOption(option)
+			}*/
 			myChart.setOption(option)
 		}
 	}
@@ -180,8 +186,8 @@ export default class SemanticAssociation extends React.Component {
 		let data=semanticAssociationStore.recommend;
 		let semanticKey=_.keys(data);
 		let {current}=this.state;
-		let key=semanticKey[current];
-		let recommend=data[key];
+		this.key=semanticKey[current];
+		let recommend=data[this.key];
 		let recommend_arr =[];
 		for(var i in recommend){
 			recommend_arr.push(recommend[i])
