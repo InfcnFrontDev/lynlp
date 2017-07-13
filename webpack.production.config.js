@@ -17,7 +17,7 @@ module.exports = {
     './styles/index.scss'
   ],
   output: {
-    publicPath: './',		
+    publicPath: './',
     path: path.join(__dirname, 'public'),
     filename: '[chunkhash].js'
   },
@@ -28,7 +28,9 @@ module.exports = {
     loaders
   },
   plugins: [
-    new WebpackCleanupPlugin(),
+	  new WebpackCleanupPlugin({
+		  exclude: ["brat/**/*"]
+	  }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'

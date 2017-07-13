@@ -3,11 +3,14 @@ import LynlpApi from "../common/lynlp-api"
 
 class KeywordExtractStore {
 	@observable	keyword='';
+	@observable isFetching= false;
 
 	@action
 	fetchData(content){
-		LynlpApi.keyword(content).then(res => {
+		this.isFetching = true;
+		LynlpApi.keyword(content, 50).then(res => {
 			this.keyword = res;
+			this.isFetching = false
 		});
 	}
 }

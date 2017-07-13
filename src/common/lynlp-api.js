@@ -89,11 +89,20 @@ export default {
 		})
 	},
 	/**
+	 * 实体抽取
+	 */
+	entity(content) {
+		return new newPromise(config.apiPath + 'NlpDemoApi/entity', {
+			content
+		})
+	},
+	/**
 	 * 关键词抽取
 	 */
-	keyword(content) {
+	keyword(content, size) {
 		return new newPromise(config.apiPath + 'NlpDemoApi/keyword', {
-			content
+			content,
+			size
 		})
 	},
 	/**
@@ -102,6 +111,22 @@ export default {
 	grabContent(url) {
 		return newPromise(config.apiPath + 'ContentExtractorApi/execute', {
 			url
+		});
+	},
+	/**
+	 * 语义关联
+	 */
+	semanticRecommend(content) {
+		return newPromise(config.apiPath + 'NlpDemoApi/semanticRecommend', {
+			content
+		});
+	},
+	/**
+	 * 语义关联-关系图
+	 */
+	semanticRecommendGraph(keyword) {
+		return newPromise(config.apiPath + 'NlpDemoApi/semanticRecommendGraph', {
+			keyword
 		});
 	}
 }

@@ -406,6 +406,22 @@ a:focus {
   height: 150px;
   line-height: 28px;
 }
+#graph line {
+  stroke: #666;
+}
+
+#graph .node {
+  pointer-events: all;
+}
+
+#graph circle {
+  stroke: none;
+  stroke-width: 40px;
+}
+
+#graph .node text {
+  font: 8px sans-serif;
+}
 
 .jpt {
   padding-bottom: 15px;
@@ -570,7 +586,9 @@ a:focus {
   margin: 0 5px;
   cursor: pointer;
 }
-
+.ygBox{
+  height: 450px;
+}
 .ygm {
   margin-top: 20px;
 }
@@ -582,8 +600,13 @@ a:focus {
 
 .yg-l {
   width: 260px;
+  height:400px;
+  overflow-y: scroll;
 }
-
+.yg-r {
+  width: 260px;
+  height:400px;
+}
 .ygr-t {
   margin: 10px 0;
   text-align: right;
