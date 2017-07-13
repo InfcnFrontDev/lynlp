@@ -25,7 +25,6 @@ export default class EntityExtract extends React.Component {
 		}],links = [],index=1,index1=20
 		let entityData =EntityExtractStore.entity
 		function obj(val) {
-			alert(JSON.stringify(val))
 			Object.keys(val).forEach(function (k) {
 				var obj3 = {},obj4 = {}
 				obj3.id = index1++
@@ -54,7 +53,6 @@ export default class EntityExtract extends React.Component {
 			links.push(obj2)
 			obj(entityData[key])
 		})
-		alert(JSON.stringify(links))
 		var myChart = echarts.init(document.getElementById('main'));
 		var option = {
 			legend: {
