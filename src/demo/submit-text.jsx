@@ -16,30 +16,34 @@ export default class SubmitText extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			url: ''
+			url: '',
+			get:false,
 		}
+	}
+	componentWillMount(){
+		this.submitText()
 	}
 
 	render() {
+		let {isFetching} = contentStore;
+
 		return (
 			<div className="wb-t">
 				<textarea className="txtr_1" value={contentStore.content}
 						  onChange={(e) => contentStore.content = e.target.value}/>
+
 				<div className="wbt-b cf">
 					<a href="javascript:void(0)" className="tj-a fr" onClick={this.submitText.bind(this)}>提交文本</a>
 					<a href="javascript:void(0)" className="zq-a fr" onClick={this.grabContent.bind(this)}>抓取</a>
 					<input type="url" className="txt-1 fr" placeholder="网页URL......" value={this.state.url}
 						   onChange={(e) => this.setState({url: e.target.value})}/>
+					{isFetching?<img className="fr" style={{width:50,height:50,position:'absolute',right: 560,top:130}} src={require('../../images/loading.gif')} alt=""/>:null}
 				</div>
 			</div>
 		)
 	}
 
-	componentDidMount() {
-		this.submitText();
-	}
-
-	submitText() {
+	submitText(){
 		let {content} = contentStore;
 		simpleComplexStore.fetchData(content);
 		contentSummaryStore.fetchData(content);
@@ -48,6 +52,7 @@ export default class SubmitText extends React.Component {
 		sentimentAnalysisStore.fetchData(content)
 		WordSegmentationStore.fetchData(content)
 		dependencyGrammarStore.fetchData(content)
+
 
 	}
 
