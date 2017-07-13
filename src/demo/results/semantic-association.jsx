@@ -16,16 +16,21 @@ export default class SemanticAssociation extends React.Component {
 			current: 0,
 			item1:''
 		};
-
-
 	}
+
 	componentWillUpdate(nextProps){
 		if(this.state.item1!=semanticAssociationStore.keyItem&&semanticAssociationStore.keyItem!=""){
 			this.setState({
 				item1:semanticAssociationStore.keyItem
 			})
 			semanticAssociationStore.fetchDataGraph(semanticAssociationStore.keyItem);
+		}
+	}
 
+	componentDidUpdate(){
+		let {graph}= semanticAssociationStore
+		if(graph.nodes){
+			this.ygTu(graph)
 		}
 	}
 	itemNav(index){
@@ -34,89 +39,142 @@ export default class SemanticAssociation extends React.Component {
 	click(index,item){
 		this.setState({
 			current: index,
-		})
+		});
 		semanticAssociationStore.fetchDataGraph(item);
 
 
 	}
 	ygTu(data){
-/*		let Data=[{"doc_count":137,"key":"教育"},{"doc_count":80,"key":"保险"},{"doc_count":65,"key":"社保"},{"doc_count":59,"key":"环保"},{"doc_count":48,"key":"房地产"},{"doc_count":38,"key":"政府信箱"},{"doc_count":37,"key":"劳动合同"},{"doc_count":28,"key":"养老保险"},{"doc_count":28,"key":"医疗保险"},{"doc_count":27,"key":"劳动保障"}]
+	let node=[];
+		let obj={
+			id:"解决方案",
+			category: 0,
+			name:"解决方案",
+			symbolSize: 40
+		};
+		data.nodes.map((item,index)=>{
+			obj={
+				id:item.name,
+				category: 0,
+				name:item.name,
+				symbolSize: 40
+			};
+			node.push(obj)
+		});
+		let links=[];
+		let lik={
+			target: '',
+			source:''
+		};
+		data.links.map((item,index)=>{
+			lik={
+				target: item.to,
+				source:item.from
+			};
+			links.push(lik)
+		});
 
-		var nodes = [{
-			name: '9898',
-			value: 10,
 
-		}]
-		Data.map((item,index)=>{
-			nodes.push({
-					"name": item.key,
-					"value": item.doc_count
-				}
-			)
-		})
-
-		var links=[];
-		Data.map((item,index)=>{
-			links.push({
-					"source": item.key,
-					"target":'9898',
-					weight:1
-				}
-			)
-		})
-
-		//===================
-	let	option = {
-			tooltip : {
-				trigger: 'item',
-				formatter: '{a} : {b}'
-			},
-			series : [
-				{
-					type:'force',
-					name : "主题关联",
-					ribbonType: false,
-
-					itemStyle: {
-						normal: {
-							label: {
-								show: true,
-								textStyle: {
-									color: '#333'
-								}
-							},
-							nodeStyle : {
-								brushType : 'both',
-								borderColor : 'rgba(255,215,0,0.4)',
-								borderWidth : 1
-							}
-						},
+		var option = {
+			legend: {
+				show: true,
+				data: [
+					{
+						name: '解决方案',
+						icon: 'rect'//'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
 
 					},
-					minRadius : 15,
-					maxRadius : 25,
-					gravity: 1.1,
+					{
+						name: '关联词',
 
-					draggable: false,
-					linkSymbol: 'arrow',
-					steps: 10,
-					coolDown: 0.9,
-					//preventOverlap: true,
-					initial:[150,150],
-					fixX:true,
-					fixY:true,
-					nodes:nodes,
-					links:links
+						icon: 'roundRect'
+					},
+					{
+						name: '相关联词',
+
+						icon: 'circle'
+					}
+				]
+			},
+			series: [{
+				type: 'graph', //关系图
+				name: "语义关联", //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
+				layout: 'force', //图的布局，类型为力导图，'circular' 采用环形布局，见示例 Les Miserables
+				force: {
+					repulsion: 100,//节点之间的斥力因子。支持数组表达斥力范围，值越大斥力越大。
+					gravity: 0.1,//节点受到的向中心的引力因子。该值越大节点越往中心点靠拢。
+					edgeLength: 50,//边的两个节点之间的距离，这个距离也会受 repulsion。[10, 50] 。值越小则长度越长
+					layoutAnimation: false
+				},
+				edgeSymbol: ['none', 'none'],//边两端的标记类型，可以是一个数组分别指定两端，也可以是单个统一指定。默认不显示标记，常见的可以设置为箭头，如下：edgeSymbol: ['circle', 'arrow']
+				edgeSymbolSize: 5,//边两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定。
+				itemStyle: {//===============图形样式，有 normal 和 emphasis 两个状态。normal 是图形在默认状态下的样式；emphasis 是图形在高亮状态下的样式，比如在鼠标悬浮或者图例联动高亮时。
+					normal: { //默认样式
+						label: {
+							show: true
+						},
+						borderType: 'solid', //图形描边类型，默认为实线，支持 'solid'（实线）, 'dashed'(虚线), 'dotted'（点线）。
+						borderWidth: 0, //图形的描边线宽。为 0 时无描边。
+						opacity: 1
+						// 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+
+					},
+					emphasis: {//高亮状态
+
+					}
+				},
+				data:node,
+				categories: [
+					{
+						name: '解决方案',
+						symbol: 'rect',
+						color:'blue'
+					}, {
+						name: '关联词',
+						symbol: 'rect',
+						color:'pink'
+					}, {
+						name: '相关联词',
+						symbol: 'roundRect',
+						color:'yellow'
+					}],
+				links:links
+
+			}],
+			lineStyle: { //==========关系边的公用线条样式。
+				normal: {
+					color: 'pink',
+					width: '5',
+					type: 'solid', //线的类型 'solid'（实线）'dashed'（虚线）'dotted'（点线）
+					curveness: 0, //线条的曲线程度，从0到1
+					opacity: 1
+				},
+				emphasis: {//高亮状态
+
 				}
-			]
+			},
+			label: { //=============图形上的文本标签
+				normal: {
+					show: true,//是否显示标签。
+					position: 'inside',//标签的位置。['50%', '50%'] [x,y]
+					textStyle: { //标签的字体样式
+						color: '#000', //字体颜色
+						fontStyle: 'normal',//文字字体的风格 'normal'标准 'italic'斜体 'oblique' 倾斜
+						fontWeight: 'normal',//'normal'标准'bold'粗的'bolder'更粗的'lighter'更细的或100 | 200 | 300 | 400...
+						fontFamily: 'sans-serif', //文字的字体系列
+						fontSize: 12, //字体大小
+					}
+				},
+				emphasis: {//高亮状态
+
+				}
+			},
 		};
-
-
-
-		var myChart = echarts.init(document.getElementById('ygtu'));
-		myChart.setOption(option);*/
-
-
+		var dom_yg =document.getElementById('yg');
+		if(dom_yg){
+			var myChart = echarts.init(dom_yg);
+			myChart.setOption(option)
+		}
 	}
 	render() {
 		let data=semanticAssociationStore.recommend;
@@ -141,18 +199,19 @@ export default class SemanticAssociation extends React.Component {
 					<div className="ygm cf">
 						<div className="yg-l fl" style={{float:'left'}}>
 							<table className="cptab">
+								<tbody>
 								<tr>
 									<th>词名</th>
 									<th>相关性</th>
 								</tr>
 								{recommend_arr.map((item,index)=>{return <tr key={index}>
 									<td>{item.name}</td>
-									<td>{item.score}</td>
+									<td>{item.score.toFixed(2)}</td>
 								</tr>})}
+								</tbody>
 							</table>
 						</div>
-						<div id="ygtu" style={{width:650,height:400,float:'left'}}>{semanticAssociationStore.fetchingTu?<Loading/>:this.ygTu(semanticAssociationStore.graph)}</div>
-
+						{semanticAssociationStore.fetchingTu?<Loading />:<div id="yg" style={{width:650,height:400,float:'left'}}></div>}
 					</div>
 				</div>
 			)

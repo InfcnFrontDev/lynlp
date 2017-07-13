@@ -1,25 +1,25 @@
 import config from "./config";
+import jq from "jquery";
+// import "babel-runtime/core-js/promise";
 
 const newPromise = function (url, params) {
 	return new Promise(function (resolve, reject) {
-		head.ready(() => {
-			$.ajax({
-				url: url,
-				type: "POST",
-				dataType: "json",
-				data: params,
-				success: function (res) {
-					if (res.ok) {
-						resolve(res.obj)
-					} else {
-						reject(res.message)
-					}
-				},
-				error: function (err) {
-					reject(err)
+		jq.ajax({
+			url: url,
+			type: "POST",
+			dataType: "json",
+			data: params,
+			success: function (res) {
+				if (res.ok) {
+					resolve(res.obj)
+				} else {
+					reject(res.message)
 				}
-			});
-		})
+			},
+			error: function (err) {
+				reject(err)
+			}
+		});
 	})
 }
 

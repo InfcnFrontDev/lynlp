@@ -10,6 +10,7 @@ import SemanticAssociation from "./results/semantic-association";
 import SentimentAnalysis from "./results/sentiment-analysis";
 import DependencyGrammar from "./results/dependency-grammar";
 import SensitiveWords from "./results/sensitive-words";
+import jq from "jquery";
 
 
 const items = [
@@ -78,11 +79,9 @@ export default class Result extends React.Component {
 	}
 
 	onItemPress(id) {
-		head.ready(function(){
-			$("html, body").animate({
+		jq("html, body").animate({
 				scrollTop: $("#"+id).offset().top
-			}, {duration: 500, easing: "swing"})
-		})
+			}, {duration: 300, easing: "swing"})
 
 		this.setState({
 			selected: id

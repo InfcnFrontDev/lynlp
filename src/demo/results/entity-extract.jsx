@@ -22,21 +22,20 @@ export default class EntityExtract extends React.Component {
 			name: 'root',
 			value: 20,
 			symbolSize: 80
-		}],links = [],index=1,index1=20
+		}], links = [],index=1,index1=10
 		let entityData =EntityExtractStore.entity
-		function obj(val) {
-			Object.keys(val).forEach(function (k) {
+		function obj(val,k) {
+			val.forEach(function (v) {
 				var obj3 = {},obj4 = {}
 				obj3.id = index1++
 				obj3.category = 2
-				obj3.name = val[k]
+				obj3.name = Object.keys(v)[0]
 				obj3.value = 20
 				obj3.symbolSize = 60
-				obj4.source = index1-1
-				obj4.target = index-1
+				obj4.source = index++
+				obj4.target = k
 				data.push(obj3)
 				links.push(obj4)
-				alert('111')
 
 			})
 		}
@@ -51,8 +50,9 @@ export default class EntityExtract extends React.Component {
 			obj2.target = 0
 			data.push(obj1)
 			links.push(obj2)
-			obj(entityData[key])
+			obj(entityData[key],index-1)
 		})
+
 		var myChart = echarts.init(document.getElementById('main'));
 		var option = {
 			legend: {
@@ -114,108 +114,7 @@ export default class EntityExtract extends React.Component {
 						symbol: 'roundRect'
 					}],
 				data: data,
-				links: links
-				// data: [
-				// 	{
-				// 		id: 0,
-				// 		category: 0,
-				// 		name: 'root',
-				// 		value: 20,
-				// 		symbolSize: 80
-				// 	},
-				// 	{
-				// 		id: 1,
-				// 		category: 1,
-				// 		name: '时间',
-				// 		value: 20,
-				// 		symbolSize: 70
-				// 	},
-				// 	{
-				// 		id: 2,
-				// 		category: 2,
-				// 		name: '1',
-				// 		value: 20,
-				// 		symbolSize: 60,
-				// 	},
-				// 	{
-				// 		id: 3,
-				// 		category: 2,
-				// 		name: '2',
-				// 		symbol: 'circle',
-				// 		value: 20,
-				// 		symbolSize: 60
-				// 	}, {
-				// 		id: 4,
-				// 		category: 1,
-				// 		name: '地点',
-				// 		value: 20,
-				// 		symbolSize: 70
-				// 	},
-				// 	{
-				// 		id: 5,
-				// 		category: 2,
-				// 		name: '3',
-				// 		value: 20,
-				// 		symbolSize: 60,
-				// 	},
-				// 	{
-				// 		id: 6,
-				// 		category: 2,
-				// 		name: '4',
-				// 		value: 20,
-				// 		symbolSize: 60,
-				// 	},
-				// 	{
-				// 		id: 7,
-				// 		category: 1,
-				// 		name: '人物',
-				// 		value: 20,
-				// 		symbolSize: 70
-				// 	},
-				// 	{
-				// 		id: 8,
-				// 		category: 2,
-				// 		name: '3',
-				// 		value: 20,
-				// 		symbolSize: 60,
-				// 	},{
-				// 		id: 9,
-				// 		category: 2,
-				// 		name: '3',
-				// 		value: 20,
-				// 		symbolSize: 60,
-				// 	}
-				// 	],
-				// links: [ //edges是其别名代表节点间的关系数据。
-				// 	{
-				// 		source: 1,
-				// 		target: 0
-				// 	}, {
-				// 		source: 4,
-				// 		target: 0
-				// 	}, {
-				// 		source: 7,
-				// 		target: 0
-				// 	}, {
-				// 		source: 2,
-				// 		target: 1
-				// 	}, {
-				// 		source: 3,
-				// 		target: 1
-				// 	}, {
-				// 		source: 5,
-				// 		target: 4
-				// 	}, {
-				// 		source: 6,
-				// 		target: 4
-				// 	}, {
-				// 		source: 8,
-				// 		target: 7
-				// 	}, {
-				// 		source: 9,
-				// 		target: 7
-				// 	}]
-
+				links: links,
 			}],
 			lineStyle: { //==========关系边的公用线条样式。
 				normal: {
