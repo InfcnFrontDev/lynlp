@@ -1,6 +1,7 @@
 import React from 'react';
 import {observer} from "mobx-react";
 import * as d3 from 'd3';
+import echarts from 'echarts';
 
 /**
  * 实体抽取
@@ -8,134 +9,201 @@ import * as d3 from 'd3';
 @observer
 export default class EntityExtract extends React.Component {
 	componentDidMount(props) {
-		var width = 890,
-			height = 300;
-		var a = {"机构名":[{"中国软件行业协会":1.0},{"北京英富森软件股份有限公司":1.0}],"地名":[{"中国":3.0}]}
-		var root = {
-			"name": "server1900",
-			"children": [{
-				"name": "server913",
-				"_children": null,
-				"children": [{
-					"name": "server948"
-				}, {
-					"name": "server946"
-				}]
-			}, {
-				"name": "server912",
-				"_children": null,
-				"children": [{
-					"name": "server984"
-				}, {
-					"name": "server983"
-				}]
-			}, {
-				"name": "server911",
-				"_children": null,
-				"children": [{
-					"name": "server999",
-					"_children": null,
-					"children": [{
-						"name": "server992"
+		var myChart = echarts.init(document.getElementById('main'));
+		var option = {
+			legend: {
+				show: true,
+				data: [
+					{
+						name: 'root',
+
+						icon: 'rect'//'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
+
+					},
+					{
+						name: '实体类型',
+
+						icon: 'roundRect'
+					},
+					{
+						name: '实体内容',
+
+						icon: 'circle'
+					}
+					]
+			},
+			series: [{
+				type: 'graph', //关系图
+				name: "实体抽取", //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
+				layout: 'force', //图的布局，类型为力导图，'circular' 采用环形布局，见示例 Les Miserables
+				force: {
+					repulsion: 300,//节点之间的斥力因子。支持数组表达斥力范围，值越大斥力越大。
+					gravity: 0.03,//节点受到的向中心的引力因子。该值越大节点越往中心点靠拢。
+					edgeLength: 80,//边的两个节点之间的距离，这个距离也会受 repulsion。[10, 50] 。值越小则长度越长
+					layoutAnimation: true
+				},
+				edgeSymbol: ['none', 'none'],//边两端的标记类型，可以是一个数组分别指定两端，也可以是单个统一指定。默认不显示标记，常见的可以设置为箭头，如下：edgeSymbol: ['circle', 'arrow']
+				edgeSymbolSize: 10,//边两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定。
+				itemStyle: {//===============图形样式，有 normal 和 emphasis 两个状态。normal 是图形在默认状态下的样式；emphasis 是图形在高亮状态下的样式，比如在鼠标悬浮或者图例联动高亮时。
+					normal: { //默认样式
+						label: {
+							show: true
+						},
+						borderType: 'solid', //图形描边类型，默认为实线，支持 'solid'（实线）, 'dashed'(虚线), 'dotted'（点线）。
+						borderWidth: 0, //图形的描边线宽。为 0 时无描边。
+						opacity: 1
+						// 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
+
+					},
+					emphasis: {//高亮状态
+
+					}
+				},
+				data: [
+					{
+						id: 0,
+						category: 0,
+						name: 'root',
+						value: 20,
+						symbolSize: 80
+					},
+					{
+						id: 1,
+						category: 1,
+						name: '时间',
+						value: 20,
+						symbolSize: 70
+					},
+					{
+						id: 2,
+						category: 2,
+						name: '1',
+						value: 20,
+						symbolSize: 60,
+					},
+					{
+						id: 3,
+						category: 2,
+						name: '2',
+						symbol: 'circle',
+						value: 20,
+						symbolSize: 60
+					}, {
+						id: 4,
+						category: 1,
+						name: '地点',
+						value: 20,
+						symbolSize: 70
+					},
+					{
+						id: 5,
+						category: 2,
+						name: '3',
+						value: 20,
+						symbolSize: 60,
+					},
+					{
+						id: 6,
+						category: 2,
+						name: '4',
+						value: 20,
+						symbolSize: 60,
+					},
+					{
+						id: 7,
+						category: 1,
+						name: '人物',
+						value: 20,
+						symbolSize: 70
+					},
+					{
+						id: 8,
+						category: 2,
+						name: '3',
+						value: 20,
+						symbolSize: 60,
+					},{
+						id: 9,
+						category: 2,
+						name: '3',
+						value: 20,
+						symbolSize: 60,
+					}
+					],
+				categories: [
+					{
+						name: 'root',
+						symbol: 'rect',
+						label: { //标签样式
+						}
+					}, {
+						name: '实体类型',
+						symbol: 'rect'
+					}, {
+						name: '实体内容',
+						symbol: 'roundRect'
+					}],
+				links: [ //edges是其别名代表节点间的关系数据。
+					{
+						source: 1,
+						target: 0
+					}, {
+						source: 4,
+						target: 0
+					}, {
+						source: 7,
+						target: 0
+					}, {
+						source: 2,
+						target: 1
+					}, {
+						source: 3,
+						target: 1
+					}, {
+						source: 5,
+						target: 4
+					}, {
+						source: 6,
+						target: 4
+					}, {
+						source: 8,
+						target: 7
+					}, {
+						source: 9,
+						target: 7
 					}]
-				}]
-			}]
-		};
 
-		root = d3.hierarchy(root);
+			}],
+			lineStyle: { //==========关系边的公用线条样式。
+				normal: {
+					color: 'pink',
+					width: '5',
+					type: 'solid', //线的类型 'solid'（实线）'dashed'（虚线）'dotted'（点线）
+					curveness: 0, //线条的曲线程度，从0到1
+					opacity: 1
+				},
+				emphasis: {//高亮状态
 
-		var i = 0;
+				}
+			},
+			label: { //=============图形上的文本标签
+				normal: {
+					show: true,//是否显示标签。
+					position: 'inside',//标签的位置。['50%', '50%'] [x,y]
+					textStyle: { //标签的字体样式
+						color: '#cde6c7', //字体颜色
+						fontStyle: 'normal',//文字字体的风格 'normal'标准 'italic'斜体 'oblique' 倾斜
+						fontWeight: 'bolder',//'normal'标准'bold'粗的'bolder'更粗的'lighter'更细的或100 | 200 | 300 | 400...
+						fontFamily: 'sans-serif', //文字的字体系列
+						fontSize: 12, //字体大小
+					}
+				},
+				emphasis: {//高亮状态
 
-		var transform = d3.zoomIdentity;;
-
-		var nodeSvg, linkSvg, simulation, nodeEnter, linkEnter ;
-
-		var svg = d3.select("#graph").append("svg")
-			.attr("width", width)
-			.attr("height", height)
-			// .call(d3.zoom().scaleExtent([1 / 2, 8]).on("zoom", zoomed))
-			.append("g")
-			.attr("transform", "translate(40,0)");
-
-		function zoomed() {
-			svg.attr("transform", d3.event.transform);
+				}
+			},
 		}
-
-		simulation = d3.forceSimulation()
-			.force("link", d3.forceLink().id(function(d) { return d.id; }))
-			.force("charge", d3.forceManyBody())
-			.force("center", d3.forceCenter(width / 2, height / 2))
-			.on("tick", ticked);
-
-		update();
-
-		function update() {
-			var nodes = flatten(root);
-			var links = root.links();
-
-			simulation
-				.nodes(nodes)
-
-			simulation.force("link")
-				.links(links);
-
-			linkSvg = svg.selectAll(".link")
-				.data(links, function(d) { return d.target.id; })
-
-			linkSvg.exit().remove();
-
-			linkSvg = linkSvg.enter()
-				.append("line")
-				.attr("class", "link");
-
-			nodeSvg = svg.selectAll(".node")
-				.data(nodes, function(d) { return d.id; })
-
-			nodeSvg.exit().remove();
-
-			nodeSvg = nodeSvg.enter()
-				.append("g")
-				.attr("class", "node")
-
-
-			nodeSvg.append("circle")
-				.attr("r", 4  )
-				.append("title")
-				.text(function(d) { return d.data.name; })
-
-			nodeSvg.append("text")
-				.attr("dy", 3)
-				.attr("x", function(d) { return d.children ? -8 : 8; })
-				.style("text-anchor", function(d) { return d.children ? "end" : "start"; })
-				.text(function(d) { return d.data.name; });
-
-
-
-		}
-
-		function ticked() {
-			linkSvg
-				.attr("x1", function(d) { return d.source.x; })
-				.attr("y1", function(d) { return d.source.y; })
-				.attr("x2", function(d) { return d.target.x; })
-				.attr("y2", function(d) { return d.target.y; });
-
-			nodeSvg
-				.attr("transform", function(d) { return "translate(" + d.x + ", " + d.y + ")"; });
-		}
-
-		function flatten (root) {
-			// hierarchical data to flat data for force layout
-			var nodes = [];
-			function recurse(node) {
-				if (node.children) node.children.forEach(recurse);
-				if (!node.id) node.id = ++i;
-				else ++i;
-				nodes.push(node);
-			}
-			recurse(root);
-			return nodes;
-		}
+		myChart.setOption(option);
 	}
 
 	render() {
@@ -145,7 +213,7 @@ export default class EntityExtract extends React.Component {
 				<div className="jpt cf">
 					<h3 className="fl"><i>{item.title}</i></h3>
 				</div>
-				<div className="jfp" id="graph">
+				<div id="main" style={{height: 600}}>
 				</div>
 			</div>
 		)
