@@ -1,7 +1,6 @@
 import React from "react";
-import { observer } from 'mobx-react';
-import DevTools from 'mobx-react-devtools';
-import {enableLogging} from 'mobx-logger';
+import {observer} from "mobx-react";
+import {enableLogging} from "mobx-logger";
 import "../styles/index.scss";
 import Header from "./layout/header";
 import Footer from "./layout/footer";
@@ -23,7 +22,6 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<DevTools />
 				<Header/>
 				<Content>
 					<Nav/>
