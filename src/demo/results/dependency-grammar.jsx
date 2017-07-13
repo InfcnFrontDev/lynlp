@@ -29,12 +29,16 @@ export default class DependencyGrammar extends React.Component {
 				'brat/static/fonts/PT_Sans-Caption-Web-Regular.ttf',
 				'brat/static/fonts/Liberation_Sans-Regular.ttf'
 			];
-			Util.embed(
-				'tDiv',
-				collData,
-				docData,
-				webFontURLs
-			);
+			head.ready(function () {
+
+				Util.embed(
+					'tDiv',
+					collData,
+					docData,
+					webFontURLs
+				);
+
+			})
 		}
 
 
