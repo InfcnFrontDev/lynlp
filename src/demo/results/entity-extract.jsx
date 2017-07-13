@@ -9,10 +9,11 @@ import Loading from "../loading";
 /**
  * 实体抽取
  */
-const itemName = [{name: '图形展示'}, {name: '列表展示'}]
+const itemName = [{'name': '图形展示'}, {'name': '列表展示'}]
 
 @observer
 export default class EntityExtract extends React.Component {
+
 
 	componentWillMount() {
 		EntityExtractStore.fetchData(contentStore.content)
@@ -155,14 +156,13 @@ export default class EntityExtract extends React.Component {
 	}
 
 	refresh(name){
-		this.setState({
-			currentItem: name
-		})
+		EntityExtractStore.currentItem = name
 	}
 
 	render() {
 		let {item} = this.props;
 		let {isFetching,currentItem} = EntityExtractStore
+		let self = this
 		return (
 			<div className="m-hk">
 				<div className="jpt cf">
@@ -170,13 +170,13 @@ export default class EntityExtract extends React.Component {
 					<div className="jftab fr">
 						{itemName.map((item, i) => {
 							return (
-								<span onClick={this.refresh.bind(this,item.name)} key={i} className={this.state.currentItem === item.name ? 'onsp' : ''}>{item.name}</span>
+								<span onClick={this.refresh.bind(this,item.name)} key={i} className={currentItem === item.name ? 'onsp' : ''}>{item.name}</span>
 							)
 						})}
 					</div>
 				</div>
 				{
-					<div id="main" style={{height: 600}}></div>
+					currentItem == '图形展示' ?<div id="main" style={{height: 600}}></div> : <div style={{height: 600}}></div>
 				}
 
 			</div>
