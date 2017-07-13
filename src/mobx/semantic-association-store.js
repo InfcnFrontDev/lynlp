@@ -18,6 +18,7 @@ class SemanticAssociationStore {
 	fetchData(content) {
 		this.fetching=true;
 		LynlpApi.semanticRecommend(content).then(result => {
+			this.recommend={};
 			let Key=_.keys(result);
 			this.keyItem=""+Key[0];
 			for (var i in result){
