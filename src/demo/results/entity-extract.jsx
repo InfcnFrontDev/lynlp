@@ -60,7 +60,7 @@ export default class EntityExtract extends React.Component {
 			obj(entityData[key], index - 1)
 		})
 
-		var myChart = echarts.init(document.getElementById('main'));
+		this.myChart = echarts.init(document.getElementById('main'));
 		var option = {
 			legend: {
 				show: true,
@@ -152,11 +152,12 @@ export default class EntityExtract extends React.Component {
 				}
 			},
 		}
-		myChart.setOption(option);
+		this.myChart.setOption(option);
 	}
 
 	refresh(name){
 		EntityExtractStore.currentItem = name
+		this.myChart.dispose();
 	}
 
 	render() {
@@ -178,6 +179,7 @@ export default class EntityExtract extends React.Component {
 				{
 					isFetching?<Loading/>:(currentItem == '图形展示' ?<div id="main" style={{height: 600}}></div> :
 						<div style={{height: 600}} className="scm">
+							<div id="main" style={{display: 'none'}}></div>
 							<dl className="dl1">
 								<dt>人名</dt>
 								<dd>赖德清</dd>
