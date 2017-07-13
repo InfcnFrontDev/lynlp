@@ -28,9 +28,9 @@ module.exports = {
     loaders
   },
   plugins: [
-	  new WebpackCleanupPlugin({
-		  exclude: ["brat/**/*"]
-	  }),
+    new WebpackCleanupPlugin({
+		exclude: ["brat/**/*"]
+	}),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
@@ -46,15 +46,11 @@ module.exports = {
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractTextPlugin({
-      filename: 'style.css',
+      filename: '[chunkhash].css',
       allChunks: true
     }),
     new HtmlWebpackPlugin({
       template: './src/template.html',
-      files: {
-        css: ['style.css'],
-        js: ['bundle.js'],
-      }
     })
   ]
 };

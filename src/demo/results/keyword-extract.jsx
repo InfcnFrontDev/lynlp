@@ -12,8 +12,8 @@ import Loading from '../loading';
 @observer
 export default class KeywordExtract extends React.Component {
 
-	render() {
-		let {item} = this.props;
+
+	componentDidUpdate(props) {
 		d3.select('#d3').selectAll('*').remove();
 		let cloudData =keywordExtractStore.keyword
 		if (cloudData){
@@ -51,6 +51,10 @@ export default class KeywordExtract extends React.Component {
 
 			layout.start();
 		}
+	}
+	render() {
+		let {item} = this.props;
+
 		let {isFetching} = keywordExtractStore;
 
 		return (
