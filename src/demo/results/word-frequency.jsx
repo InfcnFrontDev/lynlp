@@ -92,8 +92,8 @@ export default class WordFrequency extends React.Component {
 
 
 	renderChart(chartId, arr, color) {
-		let data1 = _.map(arr, 'name');
-		let data2 = _.map(arr, 'size');
+		let data1 = _.map(arr, 'name').reverse();
+		let data2 = _.map(arr, 'size').reverse();
 		var option = {
 			grid: {
 				left: '1%',

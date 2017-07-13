@@ -1,19 +1,19 @@
 import {observable, runInAction, computed, action, reaction, autorun} from "mobx";
 import LynlpApi from "../common/lynlp-api"
 
-class ContentSummaryStore {
+class EntityExtractStore {
 	@observable isFetching= false;
-	@observable	summary='';
+	@observable	entity={};
 
 	@action
 	fetchData(content){
 		this.isFetching = true;
-		LynlpApi.summary(content).then(res => {
-			this.summary = res;
+		LynlpApi.entity(content).then(res => {
+			this.entity = res;
 			this.isFetching = false
 		});
 	}
 }
 
-const contentSummaryStore = new ContentSummaryStore();
-export default contentSummaryStore
+const entityExtractStore = new EntityExtractStore();
+export default entityExtractStore

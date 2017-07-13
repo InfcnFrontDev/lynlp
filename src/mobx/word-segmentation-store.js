@@ -44,7 +44,7 @@ class WordSegmentationStore {
 
 	handle(terms) {
 		terms = terms.terms.filter((t)=>t.natureStr != 'null');
-		let newWords = _.filter(terms, ['newWord', true]);
+		let newWords = _.uniq(_.map(_.filter(terms, ['newWord', true]),'name'));
 		let categorys = _.uniq(_.map(terms, 'natureStr'));
 		return {categorys, terms, newWords};
 	}

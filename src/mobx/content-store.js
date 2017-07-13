@@ -1,5 +1,12 @@
 import {action, autorun, computed, observable, reaction, runInAction} from "mobx";
 import LynlpApi from "../common/lynlp-api";
+import simpleComplexStore from "../mobx/simple-complex-store";
+import contentSummaryStore from "../mobx/conent-summary-store";
+import textClassificationStore from "../mobx/text-classification-store";
+import keywordExtractStore from "../mobx/keyword-extract-store";
+import sentimentAnalysisStore from "../mobx/sentiment-analysis-store"
+import dependencyGrammarStore from "../mobx/dependency-grammar-store"
+import WordSegmentationStore from "../mobx/word-segmentation-store"
 
 class ContentStore {
 	@observable isFetching = false;
@@ -11,6 +18,13 @@ class ContentStore {
 		LynlpApi.grabContent(url).then(res => {
 			this.isFetching = false
 			this.content = res.content;
+			simpleComplexStore.fetchData(res.content);
+			contentSummaryStore.fetchData(res.content);
+			textClassificationStore.fetchData(res.content);
+			keywordExtractStore.fetchData(res.content);
+			sentimentAnalysisStore.fetchData(res.content)
+			WordSegmentationStore.fetchData(res.content)
+			dependencyGrammarStore.fetchData(res.content)
 		}, (err) => {
 			alert(err)
 		});

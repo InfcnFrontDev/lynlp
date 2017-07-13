@@ -10,6 +10,7 @@ import SemanticAssociation from "./results/semantic-association";
 import SentimentAnalysis from "./results/sentiment-analysis";
 import DependencyGrammar from "./results/dependency-grammar";
 import SensitiveWords from "./results/sensitive-words";
+import jq from "jquery";
 
 
 const items = [
@@ -34,30 +35,33 @@ export default class Result extends React.Component {
 			selected: 'a-01'
 		}
 	}
-	componentDidMount(){
-		window.addEventListener('scroll',  this.handleScroll.bind(this))
+
+	componentDidMount() {
+		window.addEventListener('scroll', this.handleScroll.bind(this))
 	}
 
 	componentWillUnmount() {
 		window.removeEventListener('scroll', this.handleScroll.bind(this));
 	}
 
-	handleScroll(){
+	handleScroll() {
 		let self = this
-		function getElementTop(elem){
-			var elemTop=elem.offsetTop;
-			elem=elem.offsetParent;
-			while(elem!=null){
-				elemTop+=elem.offsetTop;
-				elem=elem.offsetParent;
+
+		function getElementTop(elem) {
+			var elemTop = elem.offsetTop;
+			elem = elem.offsetParent;
+			while (elem != null) {
+				elemTop += elem.offsetTop;
+				elem = elem.offsetParent;
 			}
 			return elemTop;
 		}
+
 		const scrollTop = document.body.scrollTop
-		items.map((item)=>{
+		items.map((item)=> {
 			var obj = document.getElementById(item.id);
 			var offsetTop = getElementTop(obj)
-			if (scrollTop > offsetTop -300) {
+			if (scrollTop > offsetTop - 100) {
 				self.setState({
 					selected: item.id
 				})
@@ -66,15 +70,19 @@ export default class Result extends React.Component {
 
 		var obj1 = document.getElementById('test');
 		var offsetTop1 = getElementTop(obj1)
-		if (scrollTop< offsetTop1||(obj1.style.position=='fixed'&&scrollTop<530)) {
+		if (scrollTop < offsetTop1 || (obj1.style.position == 'fixed' && scrollTop < 530)) {
 			obj1.style.position = 'static';
-		}else {
+		} else {
 			obj1.style.position = 'fixed';
 			obj1.style.top = '10px';
 		}
 	}
 
-	onItemPress(id){
+	onItemPress(id) {
+		jq("html, body").animate({
+				scrollTop: $("#"+id).offset().top
+			}, {duration: 300, easing: "swing"})
+
 		this.setState({
 			selected: id
 		})
@@ -100,7 +108,8 @@ export default class Result extends React.Component {
 		let {selected} = this.state;
 		return (
 			<li key={item.id} className={selected === item.id ? 'oli' : ''}>
-				<a href={'#' + item.id} className={item.id} onClick={this.onItemPress.bind(this,item.id)}>{item.title}</a>
+				<a href={'#' + item.id} className={item.id}
+				   onClick={this.onItemPress.bind(this, item.id)}>{item.title}</a>
 				<span className="sp2"/>
 			</li>
 		)

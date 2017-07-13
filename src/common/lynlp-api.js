@@ -1,6 +1,30 @@
 import config from "./config";
+import jq from "jquery";
+// import "babel-runtime/core-js/promise";
 
 const newPromise = function (url, params) {
+	return new Promise(function (resolve, reject) {
+		jq.ajax({
+			url: url,
+			type: "POST",
+			dataType: "json",
+			data: params,
+			success: function (res) {
+				if (res.ok) {
+					resolve(res.obj)
+				} else {
+					reject(res.message)
+				}
+			},
+			error: function (err) {
+				reject(err)
+			}
+		});
+	})
+}
+
+
+const newPromise2 = function (url, params) {
 
 	let formData = new FormData();
 	for (let key in params) {
@@ -74,10 +98,10 @@ export default {
 			content
 		})
 	},
-	seg(type,content,dic) {
+	seg(type, content, dic) {
 
 		return new newPromise(config.apiPath + 'NlpDemoApi/seg', {
-			type,content,dic
+			type, content, dic
 		})
 	},
 	/**
@@ -85,6 +109,14 @@ export default {
 	 */
 	category(content) {
 		return new newPromise(config.apiPath + 'NlpDemoApi/category', {
+			content
+		})
+	},
+	/**
+	 * 实体抽取
+	 */
+	entity(content) {
+		return new newPromise(config.apiPath + 'NlpDemoApi/entity', {
 			content
 		})
 	},
