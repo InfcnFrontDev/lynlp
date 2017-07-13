@@ -176,7 +176,54 @@ export default class EntityExtract extends React.Component {
 					</div>
 				</div>
 				{
-					currentItem == '图形展示' ?<div id="main" style={{height: 600}}></div> : <div style={{height: 600}}></div>
+					isFetching?<Loading/>:(currentItem == '图形展示' ?<div id="main" style={{height: 600}}></div> :
+						<div style={{height: 600}} className="scm">
+							<dl className="dl1">
+								<dt>人名</dt>
+								<dd>赖德清</dd>
+								<dd>张岩</dd>
+							</dl>
+							<dl className="dl2">
+								<dt>地名</dt>
+								<dd>中国</dd>
+								<dd>台湾</dd>
+								<dd>美国</dd>
+								<dd>北京</dd>
+								<dd>中国台北</dd>
+								<dd>福建</dd>
+							</dl>
+							<dl className="dl3">
+								<dt>机构名</dt>
+								<dd>赖德清</dd>
+								<dd>张岩</dd>
+							</dl>
+							<dl className="dl1">
+								<dt>时间</dt>
+								<dd>赖德清</dd>
+								<dd>张岩</dd>
+							</dl>
+							<dl className="dl2">
+								<dt>分类tags</dt>
+								<dd>赖德清</dd>
+								<dd>张岩</dd>
+							</dl>
+							<dl className="dl3">
+								<dt>关键词</dt>
+								<dd>赖德清</dd>
+								<dd>张岩</dd>
+							</dl>
+							<dl className="dl1">
+								<dt>电话号码</dt>
+								<dd>赖德清</dd>
+								<dd>张岩</dd>
+							</dl>
+							<dl className="dl2">
+								<dt>车牌号码</dt>
+								<dd>赖德清</dd>
+								<dd>张岩</dd>
+							</dl>
+						</div>
+					)
 				}
 
 			</div>
