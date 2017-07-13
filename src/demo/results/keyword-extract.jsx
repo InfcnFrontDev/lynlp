@@ -3,6 +3,8 @@ import {observer} from "mobx-react";
 import keywordExtractStore from "../../mobx/keyword-extract-store"
 import * as d3 from 'd3';
 import cloud from 'd3-cloud';
+import Loading from '../loading';
+
 /**
  * 关键词提取
  */
@@ -49,13 +51,17 @@ export default class KeywordExtract extends React.Component {
 
 			layout.start();
 		}
+		let {isFetching} = keywordExtractStore;
 
 		return (
 			<div className="m-hk">
 				<div className="jpt cf">
 					<h3 className="fl"><i>{item.title}</i></h3>
 				</div>
-				<div id="d3" style={{height: 290}}></div>
+				{
+					isFetching?<Loading/>:<div id="d3" style={{height: 290}}></div>
+				}
+
 			</div>
 		)
 	}
