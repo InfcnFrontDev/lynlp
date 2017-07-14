@@ -10,7 +10,6 @@ import semanticAssociationStore from "../mobx/semantic-association-store"
 import dependencyGrammarStore from "../mobx/dependency-grammar-store"
 import WordSegmentationStore from "../mobx/word-segmentation-store"
 import EntityExtractStore from "../mobx/entity-extract-store"
-import "../../styles/submit-text.scss";
 
 
 @observer
@@ -41,9 +40,24 @@ export default class SubmitText extends React.Component {
 					<a href="javascript:void(0)" className="zq-a fr" onClick={this.grabContent.bind(this)}>抓取</a>
 					<input type="url" className="txt-1 fr" placeholder="网页URL......" value={this.state.url}
 						   onChange={(e) => this.setState({url: e.target.value})}/>
-					{isFetching ? <div className="loading">
-						<div className="imgBox"><img className="fr img" src={require('../../images/3.gif')} alt=""/></div>
-						<div className="loadingText">网页抓取中....</div>
+					{isFetching ? <div style={{
+						width: 120,
+						height: 80,
+						position: 'absolute',
+						right: 560,
+						top: 120,
+						textAlign: 'center',
+						backgroundColor: 'rgba(0,0,0,.7)',
+						borderRadius: 5
+					}}>
+						<div style={{width: 120, height: 50, textAlign: 'center'}}><img className="fr" style={{
+							width: 35,
+							height: 35,
+							display: 'inline',
+							marginRight: 40,
+							marginTop: 8,
+						}} src={require('../../images/3.gif')} alt=""/></div>
+						<div style={{width: 120, textAlign: 'center', color: '#fff'}}>网页抓取中....</div>
 					</div> : null}
 
 				</div>

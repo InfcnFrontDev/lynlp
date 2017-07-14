@@ -34,7 +34,7 @@ export default class SemanticAssociation extends React.Component {
 		}
 	}*/
 	itemNav(index){
-		return index === this.state.current ? 'spon' : '';
+		return index === this.state.current? 'spon' : '';
 	}
 	click(index,item){
 		this.setState({
@@ -44,7 +44,7 @@ export default class SemanticAssociation extends React.Component {
 	}
 	ygTu(data){
 		console.log(JSON.stringify(data))
-console.log(this.key)
+console.log(2222222222)
 		let node=[];
 		let obj={};
 		let arr={};
@@ -56,9 +56,9 @@ console.log(this.key)
 
 		data.nodes.map((item,index)=>{
 				obj={
-					id:item.name,
+					id:index==0?'关键词':item.name,
 					category:index==0?0:(arr[item.name]?1:2),
-					name:item.name,
+					name:index==0?'关键词':item.name,
 					symbolSize: 40
 				};
 
@@ -70,10 +70,18 @@ console.log(this.key)
 			source:''
 		};
 		data.links.map((item,index)=>{
-			lik={
-				target: item.to,
-				source:item.from
-			};
+			if(item.from==data.nodes[0].name){
+				lik={
+					target: item.to,
+					source:'关键词'
+				};
+			}else{
+				lik={
+					target: item.to,
+					source:item.from
+				};
+			}
+
 			links.push(lik)
 		});
 
@@ -83,7 +91,7 @@ console.log(this.key)
 				show: true,
 				data: [
 					{
-						name: '解决方案',
+						name: '关键词' ,
 						icon: 'rect'//'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'
 					},
 					{
@@ -126,16 +134,27 @@ console.log(this.key)
 
 				categories: [
 					{
-						name: '解决方案',
+						name: '关键词',
 						symbol: 'rect',
-						label: { //标签样式
+						itemStyle: {
+							normal: {
+								color: '#2ec7c9'
+							}
 						}
 					}, {
 						name: '关联词',
-						symbol: 'rect',
+						itemStyle: {
+							normal: {
+								color: '#b6a2de'
+							}
+						}
 					}, {
 						name: '相关联词',
-						symbol: 'roundRect',
+						itemStyle: {
+							normal: {
+								color: '#5ab1ef'
+							}
+						}
 					}],
 				data:node,
 				links:links
@@ -165,7 +184,7 @@ console.log(this.key)
 						fontSize: 12, //字体大小
 					}
 				},
-				emphasis: {//高亮状态z
+				emphasis: {//高亮状态
 
 				}
 			},
@@ -191,7 +210,6 @@ console.log(this.key)
 			recommend_arr.push(data[i])
 		};
 		if(graph.links){
-			console.log(111111111111111)
 			this.ygTu(graph);
 		}
 
