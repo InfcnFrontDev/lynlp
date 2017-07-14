@@ -10,6 +10,7 @@ import semanticAssociationStore from "../mobx/semantic-association-store"
 import dependencyGrammarStore from "../mobx/dependency-grammar-store"
 import WordSegmentationStore from "../mobx/word-segmentation-store"
 import EntityExtractStore from "../mobx/entity-extract-store"
+import "../../styles/word.scss";
 
 
 @observer
