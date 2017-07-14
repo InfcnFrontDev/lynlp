@@ -13,12 +13,11 @@ export default class SemanticAssociation extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			current: 0,
+			current:semanticAssociationStore.changeCurrent ,
 		};
 		this.now=1;
 	}
-
-	componentWillUpdate(nextProps){
+	/*componentWillUpdate(nextProps){
 		if(this.now==semanticAssociationStore.changeCurrent){
 			semanticAssociationStore.fetchDataGraph(semanticAssociationStore.keyItem);
 			this.setState({
@@ -26,14 +25,14 @@ export default class SemanticAssociation extends React.Component {
 			});
 			this.now++;
 		}
-	}
+	}*/
 
-	componentDidUpdate(){
-		let {graph}= semanticAssociationStore
+	/*componentDidUpdate(){
+		let {graph}= semanticAssociationStore;
 		if(graph.nodes){
 			this.ygTu(graph)
 		}
-	}
+	}*/
 	itemNav(index){
 		return index === this.state.current ? 'spon' : '';
 	}
@@ -42,13 +41,11 @@ export default class SemanticAssociation extends React.Component {
 			current: index,
 		});
 		semanticAssociationStore.fetchDataGraph(item);
-
-
 	}
 	ygTu(data){
-
-	let node=[];
-
+		console.log(JSON.stringify(data))
+console.log(this.key)
+		let node=[];
 		let obj={};
 		let arr={};
 		data.links.map((item,index)=>{
@@ -174,31 +171,37 @@ export default class SemanticAssociation extends React.Component {
 			},
 		};
 		var dom_yg =document.getElementById('yg');
-		if(dom_yg){
+		console.log()
+		/*if(dom_yg){*/
 			var myChart = echarts.init(dom_yg);
 			/*if(this.key==node[0].name){
 				myChart.setOption(option)
 			}*/
 			myChart.setOption(option)
-		}
+		/*}*/
 	}
 	render() {
-		let data=semanticAssociationStore.recommend;
-		let semanticKey=_.keys(data);
+		let {recommend,graph,fetching,fetchingTu}=semanticAssociationStore;
+		let semanticKey=_.keys(recommend);
 		let {current}=this.state;
 		this.key=semanticKey[current];
-		let recommend=data[this.key];
+		let data=recommend[this.key];
 		let recommend_arr =[];
-		for(var i in recommend){
-			recommend_arr.push(recommend[i])
+		for(var i in data){
+			recommend_arr.push(data[i])
 		};
+		if(graph.links){
+			console.log(111111111111111)
+			this.ygTu(graph);
+		}
+
 		let box=(null);
-		if(!semanticAssociationStore.fetching){
+		if(!fetching){
 			box=(
 				<div>
 					<div className="ygt" >
 						关键词：
-						{semanticAssociationStore.fetching?null:semanticKey.map((item,index)=> {
+						{fetching?null:semanticKey.map((item,index)=> {
 							return <span  key={index} onClick={ () => {this.click(index,item)} } className={ this.itemNav(index) }>{item}</span>
 						})}
 					</div>
@@ -217,7 +220,7 @@ export default class SemanticAssociation extends React.Component {
 								</tbody>
 							</table>
 						</div>
-						{semanticAssociationStore.fetchingTu?<Loading />:<div id="yg" style={{width:650,height:400,float:'left'}}></div>}
+						{fetchingTu?<Loading />:<div id="yg" style={{width:650,height:400,float:'left'}}></div>}
 					</div>
 				</div>
 			)
@@ -234,7 +237,6 @@ export default class SemanticAssociation extends React.Component {
 					<div className="ygBox">
 						{box}
 					</div>
-
 				</div>
 			)
 		}
