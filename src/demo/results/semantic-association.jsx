@@ -3,6 +3,7 @@ import {observer} from "mobx-react";
 import contentStore from '../../mobx/content-store'
 import semanticAssociationStore from '../../mobx/semantic-association-store'
 import _ from "lodash";
+import Echart from './echart'
 import Loading from "../loading";
 import echarts from "echarts";
 /**
@@ -83,8 +84,11 @@ export default class SemanticAssociation extends React.Component {
 			links.push(lik)
 		});
 
-
-		var option = {
+return {
+	nodess:node,
+	linkss:links
+};
+		/*var option = {
 			legend: {
 				show: true,
 				data: [
@@ -156,11 +160,11 @@ export default class SemanticAssociation extends React.Component {
 		var dom_yg =document.getElementById('yg');
 		if(dom_yg){
 			var myChart = echarts.init(dom_yg);
-			/*if(this.key==node[0].name){
+			/!*if(this.key==node[0].name){
 				myChart.setOption(option)
-			}*/
+			}*!/
 			myChart.setOption(option)
-		}
+		}*/
 	}
 	render() {
 		let {recommend,graph,fetching,fetchingTu}=semanticAssociationStore;
@@ -172,8 +176,9 @@ export default class SemanticAssociation extends React.Component {
 		for(var i in data){
 			recommend_arr.push(data[i])
 		};
+		let objc={};
 		if(graph.links){
-			this.ygTu(graph);
+			objc=this.ygTu(graph);
 		}
 
 		let box=(null);
@@ -201,7 +206,7 @@ export default class SemanticAssociation extends React.Component {
 								</tbody>
 							</table>
 						</div>
-						{fetchingTu?<Loading />:<div id="yg" style={{width:650,height:400,float:'left'}}></div>}
+						{fetchingTu?<Loading />:<Echart data={['关键词','相关词','相关联词']} nodes={objc.nodess} links={objc.linkss} height={400} width={650} className="fl"/>}
 					</div>
 				</div>
 			)

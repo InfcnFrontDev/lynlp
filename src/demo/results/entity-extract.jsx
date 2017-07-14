@@ -71,7 +71,7 @@ export default class EntityExtract extends React.Component {
 					</div>
 				</div>
 				{
-					isFetching ? <Loading/> : (currentItem == '图形展示' ? <Echart data={['文本','分类','关键词']}nodes={graph.nodes} links={graph.links} height={500}/>:
+					isFetching ? <Loading/> : (currentItem == '图形展示' ? <Echart data={['文本','分类','关键词']} nodes={graph.nodes} links={graph.links} height={500}/>:
 							<div style={{height:500}} className="scm">
 								<div id="main" style={{display: 'none'}}></div>
 								{this.entity.map((item,index)=>(

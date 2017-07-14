@@ -14,15 +14,15 @@ export default class Echart extends React.Component {
 				show: true,
 				data: [
 					{
-						name: '文本' ,
+						name:data[0] ,
 						icon: 'rect'
 					},
 					{
-						name: '分类',
+						name: data[1],
 						icon: 'roundRect'
 					},
 					{
-						name: '关键词',
+						name:data[2],
 						icon: 'circle'
 					}
 				]
@@ -84,8 +84,9 @@ export default class Echart extends React.Component {
 		this.myChart.setOption(option);
 	}
 	render() {
+		let {width,height,className}=this.props;
 		return (
-			<div className="echart" ref={c => this._echart = c} style={{height: this.props.height}}></div>
+			<div ref={c => this._echart = c} style={{height:height,width:width}} className={className}></div>
 		)
 	}
 }
@@ -94,6 +95,8 @@ Echart.propTypes = {
 	nodes:React.PropTypes.array,
 	links:React.PropTypes.array,
 	height:React.PropTypes.number,
+	width:React.PropTypes.number,
+	className:React.PropTypes.string,
 };
 
 
