@@ -62,9 +62,7 @@ export default class KeywordExtract extends React.Component {
 				<div className="jpt cf">
 					<h3 className="fl"><i>{item.title}</i></h3>
 				</div>
-				{
-					isFetching?<Loading/>:<div id="d3" style={{height: 290}}></div>
-				}
+				{isFetching ? <Loading/> : <div id="d3" style={{height: 290}}></div>}
 
 			</div>
 		)
