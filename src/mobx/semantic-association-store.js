@@ -11,14 +11,13 @@ class SemanticAssociationStore {
 	@observable fetchingTu= true;
 	@observable changeCurrent= 0;
 	@observable recommend= {};
+	@observable current= 0;
 	@observable graph= {};
 	@observable keyItem= '';
 
 
 	@action
 	fetchData(content) {
-		this.graph={};
-
 		this.fetching=true;
 		this.recommend={};
 		LynlpApi.semanticRecommend(content).then(result => {
@@ -29,14 +28,10 @@ class SemanticAssociationStore {
 				this.recommend[i]= result[i];
 			}
 			this.fetching=false;
-
-
 			this.fetchingTu=true;
-			this.graph={};
 			LynlpApi.semanticRecommendGraph(Key[0]).then(result => {
-				this.fetchingTu=false;
 				this.graph= result;
-
+				this.fetchingTu=false;
 			});
 		});
 
