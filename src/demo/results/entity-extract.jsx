@@ -45,11 +45,28 @@ export default class EntityExtract extends React.Component {
 	componentDidUpdate(props) {
 		let graph = this.buildGraph(EntityExtractStore.entity);
 		this.entity = this.buildEntity(EntityExtractStore.entity);
-
-		this.myChart = echarts.init(document.getElementById('main'));
+		if(document.getElementById('main')){
+			this.myChart = echarts.init(document.getElementById('main'));
+		}
 		let option = {
-			series: [
-				{
+			legend: {
+				show: true,
+				data: [
+					{
+						name: '文本' ,
+						icon: 'rect'
+					},
+					{
+						name: '分类',
+						icon: 'roundRect'
+					},
+					{
+						name: '关键词',
+						icon: 'circle'
+					}
+				]
+			},
+			series: [{
 					type: 'graph',
 					layout: 'force',
 					roam: true,
@@ -101,8 +118,7 @@ export default class EntityExtract extends React.Component {
 					},
 					data: graph.nodes,
 					links: graph.links
-				}
-			]
+				}]
 		};
 		this.myChart.setOption(option);
 	}

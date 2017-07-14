@@ -103,33 +103,9 @@ export default class SemanticAssociation extends React.Component {
 				]
 			},
 			series: [{
-				type: 'graph', //关系图
-				name: "语义关联", //系列名称，用于tooltip的显示，legend 的图例筛选，在 setOption 更新数据和配置项时用于指定对应的系列。
-				layout: 'force', //图的布局，类型为力导图，'circular' 采用环形布局，见示例 Les Miserables
-				force: {
-					repulsion: 100,//节点之间的斥力因子。支持数组表达斥力范围，值越大斥力越大。
-					gravity: 0.1,//节点受到的向中心的引力因子。该值越大节点越往中心点靠拢。
-					edgeLength: 50,//边的两个节点之间的距离，这个距离也会受 repulsion。[10, 50] 。值越小则长度越长
-					layoutAnimation: false
-				},
-				edgeSymbol: ['none', 'none'],//边两端的标记类型，可以是一个数组分别指定两端，也可以是单个统一指定。默认不显示标记，常见的可以设置为箭头，如下：edgeSymbol: ['circle', 'arrow']
-				edgeSymbolSize: 5,//边两端的标记大小，可以是一个数组分别指定两端，也可以是单个统一指定。
-				itemStyle: {//===============图形样式，有 normal 和 emphasis 两个状态。normal 是图形在默认状态下的样式；emphasis 是图形在高亮状态下的样式，比如在鼠标悬浮或者图例联动高亮时。
-					normal: { //默认样式
-						label: {
-							show: true
-						},
-						borderType: 'solid', //图形描边类型，默认为实线，支持 'solid'（实线）, 'dashed'(虚线), 'dotted'（点线）。
-						borderWidth: 0, //图形的描边线宽。为 0 时无描边。
-						opacity: 1
-						// 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。默认0.5
-
-					},
-					emphasis: {//高亮状态
-
-					}
-				},
-
+				type: 'graph',
+				layout: 'force',
+				roam: true,
 				categories: [
 					{
 						name: '关键词',
@@ -154,38 +130,28 @@ export default class SemanticAssociation extends React.Component {
 							}
 						}
 					}],
-				data:node,
-				links:links
-
-			}],
-			lineStyle: { //==========关系边的公用线条样式。
-				normal: {
-					color: 'pink',
-					width: '5',
-					type: 'solid', //线的类型 'solid'（实线）'dashed'（虚线）'dotted'（点线）
-					curveness: 0, //线条的曲线程度，从0到1
-					opacity: 1
+				edgeSymbol: ['none', 'arrow'],
+				edgeSymbolSize: 6,
+				force: {
+					repulsion: 250
 				},
-				emphasis: {//高亮状态
-
-				}
-			},
-			label: { //=============图形上的文本标签
-				normal: {
-					show: true,//是否显示标签。
-					position: 'inside',//标签的位置。['50%', '50%'] [x,y]
-					textStyle: { //标签的字体样式
-						color: '#000', //字体颜色
-						fontStyle: 'normal',//文字字体的风格 'normal'标准 'italic'斜体 'oblique' 倾斜
-						fontWeight: 'normal',//'normal'标准'bold'粗的'bolder'更粗的'lighter'更细的或100 | 200 | 300 | 400...
-						fontFamily: 'sans-serif', //文字的字体系列
-						fontSize: 12, //字体大小
+				draggable: true,
+				lineStyle: {
+					normal: {
+						width: 1,
 					}
 				},
-				emphasis: {//高亮状态
-
-				}
-			},
+				label: {
+					normal: {
+						show: true,
+						textStyle: {
+							color: '#222'
+						}
+					}
+				},
+				data:node,
+				links:links
+			}],
 		};
 		var dom_yg =document.getElementById('yg');
 		if(dom_yg){
