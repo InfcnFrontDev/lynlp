@@ -43,8 +43,6 @@ export default class SemanticAssociation extends React.Component {
 		semanticAssociationStore.fetchDataGraph(item);
 	}
 	ygTu(data){
-		console.log(JSON.stringify(data))
-console.log(2222222222)
 		let node=[];
 		let obj={};
 		let arr={};
@@ -190,21 +188,19 @@ console.log(2222222222)
 			},
 		};
 		var dom_yg =document.getElementById('yg');
-		console.log()
-		/*if(dom_yg){*/
+		if(dom_yg){
 			var myChart = echarts.init(dom_yg);
 			/*if(this.key==node[0].name){
 				myChart.setOption(option)
 			}*/
 			myChart.setOption(option)
-		/*}*/
+		}
 	}
 	render() {
 		let {recommend,graph,fetching,fetchingTu}=semanticAssociationStore;
 		let semanticKey=_.keys(recommend);
 		let {current}=this.state;
 		this.key=semanticKey[current];
-		console.log(this.key+'----------------'+current)
 		let data=recommend[this.key];
 		let recommend_arr =[];
 		for(var i in data){
