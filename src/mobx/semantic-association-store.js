@@ -7,43 +7,44 @@ import LynlpApi from "../common/lynlp-api"
 
 class SemanticAssociationStore {
 
-	@observable fetching= true;
-	@observable fetchingTu= true;
-	@observable changeCurrent= 0;
-	@observable recommend= {};
-	@observable current= 0;
-	@observable graph= {};
-	@observable keyItem= '';
+	@observable fetching = true;
+	@observable fetchingTu = true;
+	@observable changeCurrent = 0;
+	@observable recommend = {};
+	@observable current = 0;
+	@observable graph = {};
+	@observable keyItem = '';
 
 
 	@action
 	fetchData(content) {
-		this.fetching=true;
-		this.recommend={};
+		this.current = 0
+		this.fetching = true;
+		this.recommend = {};
 		LynlpApi.semanticRecommend(content).then(result => {
-			let Key=_.keys(result);
-			this.keyItem=""+Key[0];
+			let Key = _.keys(result);
+			this.keyItem = "" + Key[0];
 			this.changeCurrent++;
-			for (var i in result){
-				this.recommend[i]= result[i];
+			for (var i in result) {
+				this.recommend[i] = result[i];
 			}
-			this.fetching=false;
-			this.fetchingTu=true;
+			this.fetching = false;
+			this.fetchingTu = true;
 			LynlpApi.semanticRecommendGraph(Key[0]).then(result => {
-				this.graph= result;
-				this.fetchingTu=false;
+				this.graph = result;
+				this.fetchingTu = false;
 			});
 		});
 
 	}
+
 	@action
 	fetchDataGraph(keyword) {
-		 this.fetchingTu=true;
-		this.graph={};
+		this.fetchingTu = true;
+		this.graph = {};
 		LynlpApi.semanticRecommendGraph(keyword).then(result => {
-			this.fetchingTu=false;
-			this.graph= result;
-
+			this.graph = result;
+			this.fetchingTu = false;
 		});
 
 	}

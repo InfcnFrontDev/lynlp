@@ -17,7 +17,6 @@ export default class SemanticAssociation extends React.Component {
 	}
 
 	componentWillUpdate(nextProps) {
-
 		// semanticAssociationStore.fetchData(contentStore.content)
 		let {graph} = semanticAssociationStore;
 		if (graph && graph.links) {
