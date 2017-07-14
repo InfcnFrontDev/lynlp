@@ -31,7 +31,7 @@ class SemanticAssociationStore {
 
 
 			this.fetchingTu=true;
-			/*this.graph={};*/
+			this.graph={};
 			LynlpApi.semanticRecommendGraph(Key[0]).then(result => {
 				this.fetchingTu=false;
 				this.graph= result;
