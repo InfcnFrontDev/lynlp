@@ -1,6 +1,7 @@
 import React from "react";
 import {observer} from "mobx-react";
-import echarts from "echarts";
+// import echarts from "echarts";
+import Echart from "./echart";
 import '../../common/macarons';
 import EntityExtractStore from "../../mobx/entity-extract-store";
 import contentStore from "../../mobx/content-store";
@@ -43,92 +44,13 @@ export default class EntityExtract extends React.Component {
 		return obj
 	}
 	componentDidUpdate(props) {
-		let graph = this.buildGraph(EntityExtractStore.entity);
 		this.entity = this.buildEntity(EntityExtractStore.entity);
-		if(document.getElementById('main')){
-			this.myChart = echarts.init(document.getElementById('main'));
-		}
-		let option = {
-			legend: {
-				show: true,
-				data: [
-					{
-						name: '文本' ,
-						icon: 'rect'
-					},
-					{
-						name: '分类',
-						icon: 'roundRect'
-					},
-					{
-						name: '关键词',
-						icon: 'circle'
-					}
-				]
-			},
-			series: [{
-					type: 'graph',
-					layout: 'force',
-					roam: true,
-					symbolSize: 50,
-					categories: [
-						{
-							name: '文本',
-							itemStyle: {
-								normal: {
-									color: '#2ec7c9'
-								}
-							}
-						},
-						{
-							name: '分类',
-							itemStyle: {
-								normal: {
-									color: '#b6a2de'
-								}
-							}
-						},
-						{
-							name: '关键词',
-							itemStyle: {
-								normal: {
-									color: '#5ab1ef'
-								}
-							}
-						}
-					],
-					edgeSymbol: ['none', 'arrow'],
-					edgeSymbolSize: 6,
-					force: {
-						repulsion: 500,
-					},
-					draggable: true,
-					lineStyle: {
-						normal: {
-							width: 1,
-						}
-					},
-					label: {
-						normal: {
-							show: true,
-							textStyle: {
-								color: '#222'
-							}
-						}
-					},
-					data: graph.nodes,
-					links: graph.links
-				}]
-		};
-		this.myChart.setOption(option);
 	}
-
 	refresh(name) {
 		EntityExtractStore.currentItem = name
-		this.myChart.dispose();
 	}
-
 	render() {
+		let graph = this.buildGraph(EntityExtractStore.entity);
 		let {item} = this.props;
 		let {isFetching, currentItem} = EntityExtractStore
 		let n = 0
@@ -149,15 +71,15 @@ export default class EntityExtract extends React.Component {
 					</div>
 				</div>
 				{
-					isFetching ? <Loading/> : (currentItem == '图形展示' ? <div style={{height:500}} id="main"></div> :
+					isFetching ? <Loading/> : (currentItem == '图形展示' ? <Echart data={['文本','分类','关键词']}nodes={graph.nodes} links={graph.links} height={500}/>:
 							<div style={{height:500}} className="scm">
 								<div id="main" style={{display: 'none'}}></div>
 								{this.entity.map((item,index)=>(
 									<dl className={'dl' + num()} key={index}>
 										<dt>{item.name}</dt>
 										{item.content.map((items,i)=>(
-												<dd key={i}>{items}</dd>
-											))}
+											<dd key={i}>{items}</dd>
+										))}
 									</dl>
 								))}
 							</div>
