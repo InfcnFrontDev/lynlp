@@ -168,7 +168,7 @@ export default class SemanticAssociation extends React.Component {
 						fontSize: 12, //字体大小
 					}
 				},
-				emphasis: {//高亮状态
+				emphasis: {//高亮状态z
 
 				}
 			},

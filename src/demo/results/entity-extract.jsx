@@ -29,18 +29,20 @@ export default class EntityExtract extends React.Component {
 		});
 		return {nodes, links}
 	}
-	buildEntity(result){
+
+	buildEntity(result) {
 		let obj = []
 		_.forEach(result, (v1, k1) => {
-			let content=[]
+			let content = []
 			_.forEach(v1, (n) => {
 				let k2 = _.findKey(n, (chr) => true);
 				content.push(k2)
 			})
-			obj.push({name: k1,content: content})
+			obj.push({name: k1, content: content})
 		})
 		return obj
 	}
+
 	componentDidUpdate(props) {
 		let graph = this.buildGraph(EntityExtractStore.entity);
 		this.entity = this.buildEntity(EntityExtractStore.entity);
@@ -112,13 +114,13 @@ export default class EntityExtract extends React.Component {
 	}
 
 	render() {
-		let {item} = this.props;
-		let {isFetching, currentItem} = EntityExtractStore
-		let n = 0
-		let num = function () {
-			n===3?n=1:n++
-			return n
-		}
+		let {item} = this.props,
+			{isFetching, currentItem} = EntityExtractStore,
+			n = 0,
+			num = function () {
+				n === 3 ? n = 1 : n++
+				return n
+			}
 		return (
 			<div className="m-hk">
 				<div className="jpt cf">
@@ -135,12 +137,12 @@ export default class EntityExtract extends React.Component {
 					isFetching ? <Loading/> : (currentItem == '图形展示' ? <div id="main" style={{height: 500}}></div> :
 							<div style={{height: 500}} className="scm">
 								<div id="main" style={{display: 'none'}}></div>
-								{this.entity.map((item,index)=>(
+								{this.entity.map((item, index) => (
 									<dl className={'dl' + num()} key={index}>
 										<dt>{item.name}</dt>
-										{item.content.map((items,i)=>(
-												<dd key={i}>{items}</dd>
-											))}
+										{item.content.map((items, i) => (
+											<dd key={i}>{items}</dd>
+										))}
 									</dl>
 								))}
 							</div>
