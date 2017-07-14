@@ -17,7 +17,7 @@ export default class SemanticAssociation extends React.Component {
 		};
 		this.now=1;
 	}
-	/*componentWillUpdate(nextProps){
+	componentWillUpdate(nextProps){
 		if(this.now==semanticAssociationStore.changeCurrent){
 			semanticAssociationStore.fetchDataGraph(semanticAssociationStore.keyItem);
 			this.setState({
@@ -25,7 +25,7 @@ export default class SemanticAssociation extends React.Component {
 			});
 			this.now++;
 		}
-	}*/
+	}
 
 	/*componentDidUpdate(){
 		let {graph}= semanticAssociationStore;
@@ -204,6 +204,7 @@ console.log(2222222222)
 		let semanticKey=_.keys(recommend);
 		let {current}=this.state;
 		this.key=semanticKey[current];
+		console.log(this.key+'----------------'+current)
 		let data=recommend[this.key];
 		let recommend_arr =[];
 		for(var i in data){
