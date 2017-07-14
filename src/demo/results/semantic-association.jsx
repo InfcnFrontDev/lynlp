@@ -83,11 +83,11 @@ export default class SemanticAssociation extends React.Component {
 
 			links.push(lik)
 		});
+		return {
+			node1:node,
+			link1:links
+		}
 
-return {
-	nodess:node,
-	linkss:links
-};
 		/*var option = {
 			legend: {
 				show: true,
@@ -176,7 +176,7 @@ return {
 		for(var i in data){
 			recommend_arr.push(data[i])
 		};
-		let objc={};
+		let objc;
 		if(graph.links){
 			objc=this.ygTu(graph);
 		}
@@ -206,7 +206,7 @@ return {
 								</tbody>
 							</table>
 						</div>
-						{fetchingTu?<Loading />:<Echart data={['关键词','相关词','相关联词']} nodes={objc.nodess} links={objc.linkss} height={400} width={650} className="fl"/>}
+						{fetchingTu?<Loading />:<Echart data={['关键词','相关词','相关联词']} nodes={objc.node1} links={objc.link1} height={400} width={650} className="fl" />}
 					</div>
 				</div>
 			)

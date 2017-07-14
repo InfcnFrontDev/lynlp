@@ -81,7 +81,12 @@ export default class Echart extends React.Component {
 				links: links
 			}]
 		};
-		this.myChart.setOption(option);
+			if(this.myChart){
+				this.myChart.setOption(option);
+			}
+
+
+
 	}
 	render() {
 		let {width,height,className}=this.props;
@@ -95,8 +100,8 @@ Echart.propTypes = {
 	nodes:React.PropTypes.array,
 	links:React.PropTypes.array,
 	height:React.PropTypes.number,
-	width:React.PropTypes.number,
-	className:React.PropTypes.string,
+	/*width:React.PropTypes.number,
+	className:React.PropTypes.string,*/
 };
 
 
