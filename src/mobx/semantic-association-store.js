@@ -23,7 +23,7 @@ class SemanticAssociationStore {
 		LynlpApi.semanticRecommend(content).then(result => {
 			let Key=_.keys(result);
 			this.keyItem=""+Key[0];
-			/*this.changeCurrent++;*/
+			this.changeCurrent++;
 			for (var i in result){
 				this.recommend[i]= result[i];
 			}
