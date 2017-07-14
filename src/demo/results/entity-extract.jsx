@@ -102,7 +102,7 @@ export default class EntityExtract extends React.Component {
 				<div className="jpt cf">
 					<h3 className="fl"><i>{item.title}</i></h3>
 				</div>
-				{isFetching ? <Loading/> : (<div id="main" style={{height: 600}}></div>)}
+				{isFetching ? <Loading/> : <div id="main" style={{height: 600}}></div>}
 			</div>
 		)
 	}
