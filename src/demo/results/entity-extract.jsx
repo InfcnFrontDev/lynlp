@@ -133,8 +133,8 @@ export default class EntityExtract extends React.Component {
 					</div>
 				</div>
 				{
-					isFetching ? <Loading/> : (currentItem == '图形展示' ? <div id="main"></div> :
-							<div  className="scm">
+					isFetching ? <Loading/> : (currentItem == '图形展示' ? <div style={{height:500}} id="main"></div> :
+							<div style={{height:500}} className="scm">
 								<div id="main" style={{display: 'none'}}></div>
 								{this.entity.map((item,index)=>(
 									<dl className={'dl' + num()} key={index}>
