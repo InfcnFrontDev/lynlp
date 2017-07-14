@@ -2,7 +2,6 @@ import React from 'react';
 import echarts from 'echarts';
 import {observer} from "mobx-react";
 import sentimentAnalysisStore from "../../mobx/sentiment-analysis-store"
-import contentStore from "../../mobx/content-store";
 import Loading from "../loading";
 
 /**
@@ -10,16 +9,13 @@ import Loading from "../loading";
  */
 @observer
 export default class SentimentAnalysis extends React.Component {
-	componentWillMount() {
-		sentimentAnalysisStore.fetchData(contentStore.content)
-	}
 
 	componentDidUpdate(props) {
 		let {data, data_type} = sentimentAnalysisStore;
 		let data1 = Array.prototype.slice.call(data, 0);
 		let data2 = Array.prototype.slice.call(data_type, 0);
+
 		var myChart = echarts.init(document.getElementById('qgfxbt'));
-		let a = ''
 		var option = {
 			tooltip: {
 				trigger: 'item',
@@ -70,10 +66,10 @@ export default class SentimentAnalysis extends React.Component {
 						<div className="fl cf">
 
 							<div className="fl qfmlb">
-								{this.showList(Array.prototype.slice.call(zheng, 0), 1)}
+								{this.showList(zheng, 1)}
 							</div>
 							<div className="fl qfmlb">
-								{this.showList(Array.prototype.slice.call(fu, 0), 2)}
+								{this.showList(fu, 2)}
 							</div>
 						</div>
 					)}
