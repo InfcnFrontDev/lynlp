@@ -58,8 +58,6 @@ export default class EntityExtract extends React.Component {
 			n===3?n=1:n++
 			return n
 		};
-		console.log(JSON.stringify(graph.nodes));
-		console.log(JSON.stringify(graph.links))
 		return (
 			<div className="m-hk">
 				<div className="jpt cf">
