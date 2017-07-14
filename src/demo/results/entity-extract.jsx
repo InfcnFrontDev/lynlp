@@ -9,6 +9,7 @@ import _ from "lodash"
 /**
  * 实体抽取
  */
+const itemName = [{'name': '图形展示'}, {'name': '列表展示'}]
 @observer
 export default class EntityExtract extends React.Component {
 
@@ -16,23 +17,35 @@ export default class EntityExtract extends React.Component {
 		let k0 = '文本',
 			nodes = [{name: k0, category: 0, symbolSize: 80}],
 			links = [];
-		_.forEach(result, (v1, k1)=> {
+		_.forEach(result, (v1, k1) => {
 			nodes.push({name: k1, category: 1});
 			links.push({source: k0, target: k1, weight: 1});
 
-			_.forEach(v1, (n)=> {
-				let k2 = _.findKey(n, (chr)=> true);
+			_.forEach(v1, (n) => {
+				let k2 = _.findKey(n, (chr) => true);
 				nodes.push({name: k2, category: 2});
 				links.push({source: k1, target: k2, weight: 2})
 			})
 		});
 		return {nodes, links}
 	}
-
+	buildEntity(result){
+		let obj = []
+		_.forEach(result, (v1, k1) => {
+			let content=[]
+			_.forEach(v1, (n) => {
+				let k2 = _.findKey(n, (chr) => true);
+				content.push(k2)
+			})
+			obj.push({name: k1,content: content})
+		})
+		return obj
+	}
 	componentDidUpdate(props) {
 		let graph = this.buildGraph(EntityExtractStore.entity);
+		this.entity = this.buildEntity(EntityExtractStore.entity);
 
-		let myChart = echarts.init(document.getElementById('main'));
+		this.myChart = echarts.init(document.getElementById('main'));
 		let option = {
 			series: [
 				{
@@ -90,18 +103,49 @@ export default class EntityExtract extends React.Component {
 				}
 			]
 		};
-		myChart.setOption(option);
+		this.myChart.setOption(option);
+	}
+
+	refresh(name) {
+		EntityExtractStore.currentItem = name
+		this.myChart.dispose();
 	}
 
 	render() {
 		let {item} = this.props;
-		let {isFetching} = EntityExtractStore
+		let {isFetching, currentItem} = EntityExtractStore
+		let n = 0
+		let num = function () {
+			n===3?n=1:n++
+			return n
+		}
 		return (
 			<div className="m-hk">
 				<div className="jpt cf">
 					<h3 className="fl"><i>{item.title}</i></h3>
+					<div className="jftab fr">
+						{itemName.map((item, i) => (
+								<span onClick={this.refresh.bind(this, item.name)} key={i}
+									  className={currentItem === item.name ? 'onsp' : ''}>{item.name}</span>
+							)
+						)}
+					</div>
 				</div>
-				{isFetching ? <Loading/> : <div id="main" style={{height: 600}}></div>}
+				{
+					isFetching ? <Loading/> : (currentItem == '图形展示' ? <div id="main" style={{height: 600}}></div> :
+							<div style={{height: 600}} className="scm">
+								<div id="main" style={{display: 'none'}}></div>
+								{this.entity.map((item,index)=>(
+									<dl className={'dl' + num()} key={index}>
+										<dt>{item.name}</dt>
+										{item.content.map((items,i)=>(
+												<dd key={i}>{items}</dd>
+											))}
+									</dl>
+								))}
+							</div>
+					)
+				}
 			</div>
 		)
 	}

@@ -4,6 +4,7 @@ import _ from "lodash";
 
 class EntityExtractStore {
 	@observable isFetching = false;
+	@observable currentItem = '图形展示';
 	@observable entity = {};
 
 	@action
