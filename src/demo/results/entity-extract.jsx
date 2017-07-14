@@ -1,7 +1,6 @@
 import React from "react";
 import {observer} from "mobx-react";
 import echarts from "echarts";
-import '../../common/macarons';
 import EntityExtractStore from "../../mobx/entity-extract-store";
 import contentStore from "../../mobx/content-store";
 import Loading from "../loading";

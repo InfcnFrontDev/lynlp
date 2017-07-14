@@ -10,14 +10,12 @@ import Loading from "../loading";
  */
 @observer
 export default class SentimentAnalysis extends React.Component {
-	componentWillMount() {
-		sentimentAnalysisStore.fetchData(contentStore.content)
-	}
 
 	componentDidUpdate(props) {
 		let {data, data_type} = sentimentAnalysisStore;
 		let data1 = Array.prototype.slice.call(data, 0);
 		let data2 = Array.prototype.slice.call(data_type, 0);
+
 		var myChart = echarts.init(document.getElementById('qgfxbt'));
 		let a = ''
 		var option = {

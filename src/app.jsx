@@ -1,7 +1,6 @@
 import React from "react";
 import {observer} from "mobx-react";
 import {enableLogging} from "mobx-logger";
-import DevTools from "mobx-react-devtools"
 import "../styles/index.scss";
 import Header from "./layout/header";
 import Footer from "./layout/footer";
