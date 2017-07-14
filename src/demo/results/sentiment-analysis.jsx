@@ -15,7 +15,10 @@ export default class SentimentAnalysis extends React.Component {
 		let data1 = Array.prototype.slice.call(data, 0);
 		let data2 = Array.prototype.slice.call(data_type, 0);
 
-		var myChart = echarts.init(document.getElementById('qgfxbt'));
+		if(!this.myChart){
+			this.myChart = echarts.init(document.getElementById('qgfxbt'));
+
+		}
 		var option = {
 			tooltip: {
 				trigger: 'item',
@@ -49,8 +52,7 @@ export default class SentimentAnalysis extends React.Component {
 			],
 			animation: false,
 		};
-
-		myChart.setOption(option);
+		this.myChart.setOption(option);
 	}
 
 	render() {
