@@ -29,7 +29,7 @@ module.exports = {
   },
   plugins: [
     new WebpackCleanupPlugin({
-		exclude: ["brat/**/*"]
+		exclude: ["brat/**/*", 'config.js']
 	}),
     new webpack.DefinePlugin({
       'process.env': {
