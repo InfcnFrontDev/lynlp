@@ -29,6 +29,7 @@ node_modules
 # Ignore build files
 /public/*
 !/public/brat/
+!/public/config.js
 
 
 
