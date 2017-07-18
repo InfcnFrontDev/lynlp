@@ -11,10 +11,6 @@ import Loading from "../loading";
 @observer
 export default class DependencyGrammar extends React.Component {
 
-	componentWillMount() {
-		dependencyGrammarStore.fetchData(contentStore.content)
-	}
-
 	componentDidUpdate(props) {
 
 		let {collData, docData} = dependencyGrammarStore;
