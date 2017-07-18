@@ -1,6 +1,4 @@
-import config from "./config";
 import jq from "jquery";
-// import "babel-runtime/core-js/promise";
 
 const newPromise = function (url, params) {
 	return new Promise(function (resolve, reject) {

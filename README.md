@@ -1,17 +1,6 @@
-# lynlp
-Simple React Webpack Babel Starter Kit.
+# 凌云实验室 - 自然语言处理
 
-Tired of complicated starters with 200MB of dependencies which are hard to understand and modify?
-
-Try this is a simple [React](https://facebook.github.io/react/), [Webpack](http://webpack.github.io/) and [Babel](https://babeljs.io/) application with nothing else in it.
-
-### What's in it?
-
-* Simple src/index.jsx and src/index.css (local module css).
-* Webpack configuration for development (with hot reloading) and production (with minification).
-* CSS module loading, so you can include your css by ```import styles from './path/to.css';```.
-* Both js(x) and css hot loaded during development.
-* [Webpack Dashboard Plugin](https://github.com/FormidableLabs/webpack-dashboard) on dev server.
+在线演示：http://lysys.infcn.com.cn/web/lylab
 
 ### To run
 
