@@ -572,6 +572,7 @@ a:focus {
 
 .ygt {
   line-height: 26px;
+ overflow:hidden
 }
 
 .ygt span {
@@ -583,12 +584,10 @@ a:focus {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  margin: 0 5px;
+  margin: 0 5px 5px 0;
   cursor: pointer;
 }
-.ygBox{
-  height: 450px;
-}
+
 .ygm {
   margin-top: 20px;
 }

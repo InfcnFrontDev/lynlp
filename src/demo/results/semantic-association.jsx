@@ -95,10 +95,13 @@ export default class SemanticAssociation extends React.Component {
 					{fetching ? <Loading/> :
 						<div>
 							<div className="ygt">
-								关键词：
-								{fetching ? null : semanticKey.map((item, index) => {
-									return <span key={index} onClick={ () => {this.click(index, item)}} className={ this.itemNav(index) }>{item}</span>
-								})}
+								<div style={{width:60,float:'left'}}>关键词：</div>
+								<div style={{width:800,float:'left'}}>
+									{fetching ? null : semanticKey.map((item, index) => {
+										return <span key={index} onClick={ () => {this.click(index, item)}} className={ this.itemNav(index) }>{item}</span>
+									})}
+								</div>
+								
 							</div>
 							<div className="ygm cf">
 								<div className="yg-l fl" style={{float: 'left'}}>
