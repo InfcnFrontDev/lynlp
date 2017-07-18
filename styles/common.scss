@@ -529,7 +529,7 @@ a:focus {
 }
 
 .scm {
-  
+
 }
 
 .scm dl {
@@ -544,6 +544,9 @@ a:focus {
   padding: 10px;
   line-height: 24px;
   color: #fff;
+  word-break:keep-all;
+  white-space:nowrap;
+  overflow: hidden;
 }
 
 .scm dl dt {
