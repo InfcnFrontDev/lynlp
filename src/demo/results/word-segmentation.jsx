@@ -128,7 +128,7 @@ export default class WordSegmentation extends React.Component {
 								<h1 style={{color: '#979797', fontSize: 16, marginBottom: 20}}>新词发现：</h1>
 								<dl className="newwords" style={{height: 200,overflow: 'hidden', overflowY: 'scroll'}}>
 									{newWords.map((t, i)=>(
-										<dd key={i} className="yell">{t}</dd>
+										<dd key={i} className="yell">{t.length>9?t.substr(0,9) + '...':t}</dd>
 									))}
 								</dl>
 								<h1 style={{color: '#979797', fontSize: 16, marginBottom: 20}}>用户自定义词：</h1>

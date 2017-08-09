@@ -31,7 +31,8 @@ node_modules
 !/public/brat/
 !/public/config.js
 
-
+# Mac OS
+.DS_Store
 
 # Webstorm
 .idea
